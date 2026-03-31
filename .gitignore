@@ -33,3 +33,4 @@ node_modules/
 interfaces/*/node_modules/
 interfaces/*/dist/
 interfaces/*/package-lock.json
+e2e/test-results/
