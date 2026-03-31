@@ -63,15 +63,18 @@ test('payer search enforces biller role boundary', async () => {
 });
 
 test('payer command replay should return identical transition with same idempotency key', async ({ request }) => {
+  const runTag = `payer-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+  const testActor = `e2e-payer-${runTag}`;
+  const headers = { ...PAYER_HEADERS, 'x-actor-id': testActor };
   const payload = {
     command: 'triage',
     confirm: true,
-    request_id: 'e2e-payer-triage-1',
-    idempotency_key: 'e2e-payer-triage-denial-3002',
+    request_id: `e2e-payer-triage-${runTag}`,
+    idempotency_key: `e2e-payer-triage-${runTag}`,
     params: { source: 'e2e', submitted_at: '2026-03-31T00:00:00Z' },
   };
   const first = await request.post(`${BACKEND_BASE}/v1/cases/DENIAL-3002/action`, {
-    headers: PAYER_HEADERS,
+    headers,
     data: payload,
   });
   expect(first.ok()).toBeTruthy();
@@ -82,7 +85,7 @@ test('payer command replay should return identical transition with same idempote
   expect(firstBody.resulting_queue_state).toBe('triage_in_progress');
 
   const second = await request.post(`${BACKEND_BASE}/v1/cases/DENIAL-3002/action`, {
-    headers: PAYER_HEADERS,
+    headers,
     data: payload,
   });
   expect(second.ok()).toBeTruthy();

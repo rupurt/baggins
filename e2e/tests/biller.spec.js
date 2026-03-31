@@ -56,15 +56,18 @@ test('biller search and command flow is connected to backend', async ({ page }) 
 });
 
 test('biller command preview and idempotent replay are deterministic', async ({ request }) => {
+  const runTag = `biller-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+  const testActor = `e2e-biller-${runTag}`;
+  const headers = { ...BILLER_HEADERS, 'x-actor-id': testActor };
   const previewPayload = {
     command: 'retry',
     confirm: false,
-    request_id: 'e2e-biller-preview-1',
-    idempotency_key: 'e2e-biller-retry-biller-1002',
+    request_id: `e2e-biller-preview-${runTag}`,
+    idempotency_key: `e2e-biller-retry-${runTag}`,
     params: { source: 'e2e', submitted_at: '2026-03-31T00:00:00Z' },
   };
   const previewResponse = await request.post(`${BACKEND_BASE}/v1/cases/BILLER-1002/action`, {
-    headers: BILLER_HEADERS,
+    headers,
     data: previewPayload,
   });
   expect(previewResponse.ok()).toBeTruthy();
@@ -82,7 +85,7 @@ test('biller command preview and idempotent replay are deterministic', async ({ 
   const executeResponse1 = await request.post(
     `${BACKEND_BASE}/v1/cases/BILLER-1002/action`,
     {
-      headers: BILLER_HEADERS,
+      headers,
       data: executePayload,
     },
   );
@@ -95,7 +98,7 @@ test('biller command preview and idempotent replay are deterministic', async ({ 
   const executeResponse2 = await request.post(
     `${BACKEND_BASE}/v1/cases/BILLER-1002/action`,
     {
-      headers: BILLER_HEADERS,
+      headers,
       data: executePayload,
     },
   );
