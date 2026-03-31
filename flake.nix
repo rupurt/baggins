@@ -18,6 +18,7 @@
           pkgs.cargo
           pkgs.clippy
           pkgs.just
+          pkgs.cargo-nextest
           keel.packages.${system}.keel
           pkgs.git
           pkgs.pkg-config

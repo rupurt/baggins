@@ -7,7 +7,7 @@ test:
   @if [ -f Cargo.toml ]; then \
     if ! command -v cargo-nextest >/dev/null 2>&1; then \
       echo "cargo-nextest is required for mission-style test execution."; \
-      echo "Install with: cargo install cargo-nextest --locked"; \
+      echo "Enter the nix shell (nix develop) to load cargo-nextest from the repository flake."; \
       exit 1; \
     fi; \
     cargo nextest run --all-targets --all-features; \
@@ -27,7 +27,7 @@ quality:
     cargo fmt --all -- --check; \
     if ! command -v cargo-nextest >/dev/null 2>&1; then \
       echo "cargo-nextest is required for mission-quality test execution."; \
-      echo "Install with: cargo install cargo-nextest --locked"; \
+      echo "Enter the nix shell (nix develop) to load cargo-nextest from the repository flake."; \
       exit 1; \
     fi; \
     cargo nextest run --all-targets --all-features; \
