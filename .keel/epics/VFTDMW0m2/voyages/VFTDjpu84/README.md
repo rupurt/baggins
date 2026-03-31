@@ -1,12 +1,14 @@
 ---
 # system-managed
 id: VFTDjpu84
-status: draft
+status: in-progress
 epic: VFTDMW0m2
 created_at: 2026-03-31T11:18:03
 # authored
 title: Unified Billing Workflow API Platform
 index: 1
+updated_at: 2026-03-31T11:21:43
+started_at: 2026-03-31T11:21:48
 ---
 
 # Unified Billing Workflow API Platform
@@ -29,6 +31,6 @@ index: 1
 
 | Title | Type | Status |
 |-------|------|--------|
-| [Implement Shared REST API Gateway For Biller and Payer](../../../../stories/VFTDmEBDO/README.md) | feat | icebox |
-| [Add Audit, Traceability, And Idempotent Action Handling](../../../../stories/VFTDmEQDP/README.md) | feat | icebox |
+| [Implement Shared REST API Gateway For Biller and Payer](../../../../stories/VFTDmEBDO/README.md) | feat | in-progress |
+| [Add Audit, Traceability, And Idempotent Action Handling](../../../../stories/VFTDmEQDP/README.md) | feat | in-progress |
 <!-- END GENERATED -->

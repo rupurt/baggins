@@ -1,12 +1,14 @@
 ---
 # system-managed
 id: VFTDjPO70
-status: draft
+status: in-progress
 epic: VFTDJfTfN
 created_at: 2026-03-31T11:18:02
 # authored
 title: Biller Conversational Interface
 index: 1
+updated_at: 2026-03-31T11:21:43
+started_at: 2026-03-31T11:21:48
 ---
 
 # Biller Conversational Interface
@@ -29,6 +31,6 @@ index: 1
 
 | Title | Type | Status |
 |-------|------|--------|
-| [Build Biller Conversational Search And Case Dashboard](../../../../stories/VFTDlouAq/README.md) | feat | icebox |
-| [Implement Actionable Chat Commands For Claim Workflow](../../../../stories/VFTDlpDAr/README.md) | feat | icebox |
+| [Build Biller Conversational Search And Case Dashboard](../../../../stories/VFTDlouAq/README.md) | feat | in-progress |
+| [Implement Actionable Chat Commands For Claim Workflow](../../../../stories/VFTDlpDAr/README.md) | feat | backlog |
 <!-- END GENERATED -->

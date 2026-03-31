@@ -26,8 +26,8 @@ Biller workflow latency from chart review to claim readiness is high due to frag
 
 ### Out of Scope
 
-- Full payer rule engine changes.
-- Billing-policy pricing optimization logic.
+- [SCOPE-04] Full payer rule engine changes.
+- [SCOPE-05] Billing-policy pricing optimization logic.
 
 ## Requirements
 

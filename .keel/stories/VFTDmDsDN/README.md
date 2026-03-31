@@ -1,15 +1,16 @@
 ---
 # system-managed
 id: VFTDmDsDN
-status: icebox
+status: in-progress
 created_at: 2026-03-31T11:18:12
-updated_at: 2026-03-31T11:18:12
+updated_at: 2026-03-31T11:22:01
 # authored
 title: Generate Conversational Appeal Drafts And Response Packages
 type: feat
 operator-signal:
 scope: VFTDJfofO/VFTDjpd83
 index: 2
+started_at: 2026-03-31T11:22:01
 ---
 
 # Generate Conversational Appeal Drafts And Response Packages

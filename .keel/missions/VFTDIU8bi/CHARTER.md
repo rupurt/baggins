@@ -21,5 +21,5 @@ Archetype: Strategic
 ## Halting Rules
 
 - DO NOT halt while any MG-* goal has unfinished board work
-- HALT when all MG-* goals with `board:` verification are satisfied
-- YIELD to human when only `metric:` or `manual:` goals remain
+- HALT when all MG-* goals with `board:` verification are complete and auditable.
+- YIELD to human when only `metric:` or `manual:` goals remain.

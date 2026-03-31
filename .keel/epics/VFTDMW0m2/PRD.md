@@ -26,8 +26,8 @@ Multiple React interfaces need deterministic APIs for case lookup, workflow stat
 
 ### Out of Scope
 
-- Rebuilding upstream payer adjudication engines.
-- Long-term data warehouse model migrations.
+- [SCOPE-04] Rebuilding upstream payer adjudication engines.
+- [SCOPE-05] Long-term data warehouse model migrations.
 
 ## Requirements
 

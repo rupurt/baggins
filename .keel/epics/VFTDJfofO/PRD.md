@@ -26,8 +26,8 @@ Payer-side claim validation and appeals intake lacks a focused, auditable interf
 
 ### Out of Scope
 
-- Automated insurer contract negotiation.
-- Full EDI/835/277 payload negotiation tooling.
+- [SCOPE-04] Automated insurer contract negotiation.
+- [SCOPE-05] Full EDI/835/277 payload negotiation tooling.
 
 ## Requirements
 
