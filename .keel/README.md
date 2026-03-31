@@ -13,6 +13,24 @@
 
 ## Epics
 
+### [Mission One Intake Ingestion Backbone](epics/VFT67Ot1y/) (draft)
+
+| Voyage | Status |
+|--------|--------|
+| [Ingestion Schema Normalization](epics/VFT67Ot1y/voyages/VFT6A4x9t/) | draft |
+
+### [Clinical Intake Validation](epics/VFT67jg2t/) (draft)
+
+| Voyage | Status |
+|--------|--------|
+| [Intake Preflight Validation](epics/VFT67jg2t/voyages/VFT6A599u/) | draft |
+
+### [Ingestion Observability And Handoff](epics/VFT67jt2u/) (draft)
+
+| Voyage | Status |
+|--------|--------|
+| [Ingestion Handoff Telemetry](epics/VFT67jt2u/voyages/VFT6A5Q9v/) | draft |
+
 ### [Foundation Guardrail Baseline](epics/VFSyOFTYG/) (done)
 
 | Voyage | Status |
