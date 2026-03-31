@@ -1,12 +1,13 @@
 ---
 # system-managed
 id: VFSyJDGH7
-status: defining
+status: active
 created_at: 2026-03-31T10:16:46
-updated_at: 2026-03-31T10:16:46
+updated_at: 2026-03-31T10:57:23
 # authored
 title: Mission Two Medical Coding And Evidence Extraction Agent
 watch: ~
+activated_at: 2026-03-31T10:57:23
 ---
 
 # Mission Two Medical Coding And Evidence Extraction Agent
