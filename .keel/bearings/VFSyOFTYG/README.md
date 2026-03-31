@@ -1,13 +1,15 @@
 ---
 # system-managed
 id: VFSyOFTYG
-status: exploring
+status: laid
 created_at: 2026-03-31T10:17:05
 # authored
 title: Foundation Guardrail Baseline
 index: 1
 mission: VFSyJ7GEp
 updated_at: 2026-03-31T10:17:07
+laid_at: 2026-03-31T10:35:57
+epic: VFSyOFTYG
 ---
 
 # Foundation Guardrail Baseline

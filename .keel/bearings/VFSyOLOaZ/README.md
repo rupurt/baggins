@@ -1,13 +1,15 @@
 ---
 # system-managed
 id: VFSyOLOaZ
-status: exploring
+status: laid
 created_at: 2026-03-31T10:17:06
 # authored
 title: Transit Schema Contracting
 index: 3
 mission: VFSyJ7GEp
 updated_at: 2026-03-31T10:17:08
+laid_at: 2026-03-31T10:35:56
+epic: VFSyOLOaZ
 ---
 
 # Transit Schema Contracting

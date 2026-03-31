@@ -6,7 +6,7 @@ Archetype: Strategic
 
 | ID | Description | Verification |
 |----|-------------|--------------|
-| MG-01 | {{goal}} | board: ... |
+| MG-01 | Define mission execution scope and proof objectives for governance planning. | board: VFSyJ7GEp |
 
 ## Constraints
 

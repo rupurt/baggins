@@ -22,22 +22,22 @@ id: VFSyOFTYG
 
 ## Findings
 
-- Key finding with canonical support [SRC-01]
+- Mission baseline work is required to prevent service drift before any claim-related implementation begins [SRC-01].
 
 ## Opportunity Cost
 
-What are we not doing by pursuing this? Cite the tradeoff, for example [SRC-01].
+Skipping this baseline creates rework risk in future medical billing implementations and weakens reproducibility in verifier/audit flows [SRC-02].
 
 ## Dependencies
 
-- Dependency or prerequisite with support [SRC-01]
+- Requires the mission’s governance and workflow standards to be honored before payment-impacting execution [SRC-02].
 
 ## Alternatives Considered
 
-- Alternative path with support [SRC-01]
+- Proceed with mission-zero baseline now vs. defer to the first production mission; deferring increases configuration and audit drift [SRC-02].
 
 ## Recommendation
 
-[ ] Proceed → convert to epic [SRC-01]
-[ ] Park → revisit later [SRC-01]
-[ ] Decline → document learnings [SRC-01]
+[x] Proceed → convert to epic [SRC-01]
+[ ] Park → revisit later [SRC-02]
+[ ] Decline → document learnings [SRC-02]

@@ -22,22 +22,22 @@ id: VFSyOIPZQ
 
 ## Findings
 
-- Key finding with canonical support [SRC-01]
+- Human escalation and environment-data boundaries are mandatory for high-impact decisions in this mission type [SRC-01].
 
 ## Opportunity Cost
 
-What are we not doing by pursuing this? Cite the tradeoff, for example [SRC-01].
+Without explicit boundaries, ambiguity in model/data usage could violate policy and increase audit remediation overhead [SRC-01].
 
 ## Dependencies
 
-- Dependency or prerequisite with support [SRC-01]
+- Needs alignment with mission governance policy and verifier role definitions already in scope [SRC-01].
 
 ## Alternatives Considered
 
-- Alternative path with support [SRC-01]
+- Proceed with explicit boundary matrix now vs. relying on implicit conventions; explicit matrix improves auditability and risk control [SRC-03].
 
 ## Recommendation
 
-[ ] Proceed → convert to epic [SRC-01]
-[ ] Park → revisit later [SRC-01]
-[ ] Decline → document learnings [SRC-01]
+[x] Proceed → convert to epic [SRC-01]
+[ ] Park → revisit later [SRC-02]
+[ ] Decline → document learnings [SRC-03]
