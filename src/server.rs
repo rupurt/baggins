@@ -31,7 +31,7 @@ struct TimelineEvent {
 struct BillerCase {
     case_id: String,
     patient_name: String,
-    mrn: String,
+    patient_token: String,
     claim_id: String,
     owner: String,
     status: String,
@@ -265,6 +265,11 @@ fn make_hash(parts: &[&str]) -> String {
     format!("{:016x}", hasher.finish())
 }
 
+fn anonymize_mrn(raw_mrn: &str) -> String {
+    let normalized = raw_mrn.trim().to_ascii_lowercase();
+    make_hash(&["baggins-anon-mrn-v1", &normalized])
+}
+
 fn value_hash(value: &Option<Value>) -> String {
     match value {
         Some(value) => make_hash(&[&value.to_string()]),
@@ -301,7 +306,7 @@ fn biller_default_cases() -> HashMap<String, BillerCase> {
     let case_one = BillerCase {
         case_id: "BILLER-1001".to_string(),
         patient_name: "Alex Kim".to_string(),
-        mrn: "MRN-1010".to_string(),
+        patient_token: anonymize_mrn("MRN-1010"),
         claim_id: "CLM-001".to_string(),
         owner: "operator-a".to_string(),
         status: "open".to_string(),
@@ -329,7 +334,7 @@ fn biller_default_cases() -> HashMap<String, BillerCase> {
     let case_two = BillerCase {
         case_id: "BILLER-1002".to_string(),
         patient_name: "Morgan Chen".to_string(),
-        mrn: "MRN-2040".to_string(),
+        patient_token: anonymize_mrn("MRN-2040"),
         claim_id: "CLM-002".to_string(),
         owner: "operator-b".to_string(),
         status: "open".to_string(),
@@ -624,7 +629,7 @@ async fn biller_search(
             let text_filter = params.q.as_ref().map_or(true, |query| {
                 let lowered = query.to_lowercase();
                 case_data.patient_name.to_lowercase().contains(&lowered)
-                    || case_data.mrn.to_lowercase().contains(&lowered)
+                    || anonymize_mrn(query) == case_data.patient_token
                     || case_data.claim_id.to_lowercase().contains(&lowered)
             });
             let status_filter = params
@@ -1021,7 +1026,7 @@ impl fmt::Display for Role {
 
 #[cfg(test)]
 mod tests {
-    use super::{make_hash, Role};
+    use super::{anonymize_mrn, make_hash, seeded_state, Role};
 
     #[test]
     fn role_policy_is_deterministic() {
@@ -1029,6 +1034,22 @@ mod tests {
         assert!(Role::Unknown.allowed_commands().is_empty());
         let first = make_hash(&["a", "b", "c"]);
         let second = make_hash(&["a", "b", "c"]);
+        assert_eq!(first, second);
+    }
+
+    #[test]
+    fn biller_case_stores_derived_patient_token_only() {
+        let cases = seeded_state().biller_cases;
+        let case = cases.get("BILLER-1001").expect("known seeded case");
+
+        assert_eq!(case.patient_token, anonymize_mrn("MRN-1010"));
+        assert_ne!(case.patient_token, "MRN-1010");
+    }
+
+    #[test]
+    fn anonymize_mrn_is_consistent() {
+        let first = anonymize_mrn("MRN-2040");
+        let second = anonymize_mrn("mrn-2040");
         assert_eq!(first, second);
     }
 }
