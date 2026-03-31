@@ -61,6 +61,9 @@ baggins *ARGS:
     echo "No Cargo manifest or cargo toolchain detected; cannot run baggins."; \
   fi
 
+e2e:
+  @./e2e/run-e2e.sh
+
 build:
   @if [ -f Cargo.toml ] && command -v cargo >/dev/null 2>&1; then \
     cargo build --all-targets --all-features; \

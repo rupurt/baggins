@@ -157,31 +157,36 @@ export default function App() {
 
       <section className="search">
         <input
+          data-testid="payer-payer-input"
           placeholder="Payer"
           value={payer}
           onChange={(event) => setPayer(event.target.value)}
         />
         <input
+          data-testid="payer-reason-input"
           placeholder="Denial reason"
           value={reason}
           onChange={(event) => setReason(event.target.value)}
         />
         <input
+          data-testid="payer-status-input"
           placeholder="Status"
           value={status}
           onChange={(event) => setStatus(event.target.value)}
         />
         <input
+          data-testid="payer-age-min-input"
           placeholder="Age min"
           value={ageMin}
           onChange={(event) => setAgeMin(event.target.value)}
         />
         <input
+          data-testid="payer-age-max-input"
           placeholder="Age max"
           value={ageMax}
           onChange={(event) => setAgeMax(event.target.value)}
         />
-        <button disabled={busy} onClick={doSearch}>
+        <button data-testid="payer-search-button" disabled={busy} onClick={doSearch}>
           Search denials
         </button>
       </section>
@@ -194,7 +199,11 @@ export default function App() {
           <ul className="list">
             {results.map((item) => (
               <li key={item.case_id} className="list-item">
-                <button onClick={() => openCase(item)}>
+                <button
+                  data-testid={`payer-result-${item.case_id}`}
+                  data-case-id={item.case_id}
+                  onClick={() => openCase(item)}
+                >
                   {item.patient_name} — {item.denial_reason}
                 </button>
                 <span>{item.age_days}d</span>
@@ -213,7 +222,11 @@ export default function App() {
           </div>
           <label>
             Action
-            <select value={command} onChange={(event) => setCommand(event.target.value)}>
+            <select
+              data-testid="payer-command"
+              value={command}
+              onChange={(event) => setCommand(event.target.value)}
+            >
               {COMMANDS.map((commandValue) => (
                 <option key={commandValue} value={commandValue}>
                   {commandValue}
@@ -221,7 +234,11 @@ export default function App() {
               ))}
             </select>
           </label>
-          <button disabled={busy || !selectedCase} onClick={execute}>
+          <button
+            data-testid="payer-execute-button"
+            disabled={busy || !selectedCase}
+            onClick={execute}
+          >
             Execute workflow command
           </button>
           {selectedCase && (

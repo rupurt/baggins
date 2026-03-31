@@ -7,13 +7,14 @@ use std::sync::Arc;
 use std::time::{SystemTime, UNIX_EPOCH};
 
 use axum::extract::{Path, Query, State};
-use axum::http::{HeaderMap, StatusCode};
+use axum::http::{HeaderMap, Method, StatusCode};
 use axum::response::IntoResponse;
 use axum::routing::{get, post};
 use axum::{Json, Router};
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use tokio::sync::RwLock;
+use tower_http::cors::{Any, CorsLayer};
 
 type SharedState = Arc<RwLock<AppState>>;
 const DEFAULT_LIMIT: usize = 25;
@@ -532,6 +533,29 @@ fn payer_transition(
                 "response_submitted".to_string(),
             ))
         }
+        "hold" => {
+            case_record.status = "held".to_string();
+            case_record.timeline.push(TimelineEvent {
+                timestamp: now_iso_now(),
+                actor: actor.to_string(),
+                state: "held".to_string(),
+                detail: "payer_case_put_on_hold".to_string(),
+            });
+            Ok(("held".to_string(), "on_hold".to_string()))
+        }
+        "escalate" => {
+            case_record.status = "escalated".to_string();
+            case_record.timeline.push(TimelineEvent {
+                timestamp: now_iso_now(),
+                actor: actor.to_string(),
+                state: "escalated".to_string(),
+                detail: "payer_case_escalated".to_string(),
+            });
+            Ok((
+                "escalated".to_string(),
+                "manual_review_required".to_string(),
+            ))
+        }
         _ => Err(format!("unsupported payer command: {command}")),
     }
 }
@@ -864,14 +888,31 @@ async fn perform_action(
     let idempotency_key = format!("{actor}:{case_id}:{}", idempotency);
     let mut state_guard = state.write().await;
 
+    const ALL_COMMANDS: [&str; 8] = [
+        "validate",
+        "retry",
+        "escalate",
+        "hold",
+        "submit_draft",
+        "triage",
+        "draft_appeal",
+        "submit_response",
+    ];
+
     if !role.command_allowed(&payload.command) {
-        return bad_request(
+        if !ALL_COMMANDS.contains(&payload.command.as_str()) {
+            return bad_request(
+                request_id,
+                format!("unsupported command {}", payload.command),
+                false,
+                &role.allowed_commands(),
+            )
+            .into_response();
+        }
+
+        return unauthorized(
             request_id,
-            format!(
-                "command {} is not permitted for role {}",
-                payload.command,
-                role.as_str()
-            ),
+            format!("role {} may not execute {}", role.as_str(), payload.command),
             false,
             &role.allowed_commands(),
         )
@@ -1009,6 +1050,12 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
         .route("/v1/cases/:case_id", get(get_case))
         .route("/v1/cases/:case_id/action", post(perform_action))
         .route("/v1/cases/:case_id/audit", get(get_case_audit))
+        .layer(
+            CorsLayer::new()
+                .allow_origin(Any)
+                .allow_methods([Method::GET, Method::POST, Method::OPTIONS])
+                .allow_headers(Any),
+        )
         .with_state(state);
 
     let listener = tokio::net::TcpListener::bind(SERVER_LISTEN_ADDR).await?;
@@ -1026,7 +1073,7 @@ impl fmt::Display for Role {
 
 #[cfg(test)]
 mod tests {
-    use super::{anonymize_mrn, make_hash, seeded_state, Role};
+    use super::{anonymize_mrn, make_hash, payer_transition_preview, seeded_state, Role};
 
     #[test]
     fn role_policy_is_deterministic() {
@@ -1044,6 +1091,23 @@ mod tests {
 
         assert_eq!(case.patient_token, anonymize_mrn("MRN-1010"));
         assert_ne!(case.patient_token, "MRN-1010");
+    }
+
+    #[test]
+    fn payer_transition_supports_hold_and_escalate() {
+        let cases = seeded_state().payer_cases;
+        let case = cases.get("DENIAL-3001").expect("known seeded case");
+
+        let hold = payer_transition_preview(case, "hold", "payer-ui");
+        assert_eq!(hold, Ok(("held".to_string(), "on_hold".to_string())));
+        let escalate = payer_transition_preview(case, "escalate", "payer-ui");
+        assert_eq!(
+            escalate,
+            Ok((
+                "escalated".to_string(),
+                "manual_review_required".to_string()
+            ))
+        );
     }
 
     #[test]

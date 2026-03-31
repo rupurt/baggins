@@ -150,21 +150,24 @@ export default function App() {
 
       <section className="search">
         <input
+          data-testid="biller-query-input"
           placeholder="Patient, MRN, or claim"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
         />
         <input
+          data-testid="biller-owner-input"
           placeholder="Owner"
           value={owner}
           onChange={(event) => setOwner(event.target.value)}
         />
         <input
+          data-testid="biller-status-input"
           placeholder="Status"
           value={status}
           onChange={(event) => setStatus(event.target.value)}
         />
-        <button disabled={busy} onClick={search}>
+        <button data-testid="biller-search-button" disabled={busy} onClick={search}>
           Search queue
         </button>
       </section>
@@ -177,7 +180,11 @@ export default function App() {
           <ul className="list">
             {results.map((item) => (
               <li key={item.case_id} className="list-item">
-                <button onClick={() => openCase(item)}>
+                <button
+                  data-testid={`biller-result-${item.case_id}`}
+                  data-case-id={item.case_id}
+                  onClick={() => openCase(item)}
+                >
                   {item.patient_name} — {item.claim_id}
                 </button>
                 <span>{item.status}</span>
@@ -188,7 +195,7 @@ export default function App() {
 
         <div className="panel">
           <h2>Conversation command pane</h2>
-          <div className="messages">
+            <div className="messages">
             {messages.map((entry) => (
               <div key={entry.id} className={`bubble ${entry.speaker}`}>
                 <strong>{entry.speaker.toUpperCase()}</strong> {entry.text}
@@ -197,7 +204,11 @@ export default function App() {
           </div>
           <label>
             Quick command
-            <select value={command} onChange={(event) => setCommand(event.target.value)}>
+            <select
+              data-testid="biller-command"
+              value={command}
+              onChange={(event) => setCommand(event.target.value)}
+            >
               {COMMANDS.map((commandValue) => (
                 <option key={commandValue} value={commandValue}>
                   {commandValue}
@@ -205,7 +216,11 @@ export default function App() {
               ))}
             </select>
           </label>
-          <button disabled={busy || !selectedCase} onClick={execute}>
+          <button
+            data-testid="biller-execute-button"
+            disabled={busy || !selectedCase}
+            onClick={execute}
+          >
             Execute on selected case
           </button>
           {selectedCase && (
