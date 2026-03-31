@@ -1,9 +1,9 @@
 ---
 # system-managed
 id: VFT3T9jBK
-status: in-progress
+status: done
 created_at: 2026-03-31T10:37:16
-updated_at: 2026-03-31T10:39:37
+updated_at: 2026-03-31T10:44:00
 # authored
 title: Finalize Baseline Repo Conventions
 type: feat
@@ -11,6 +11,8 @@ operator-signal:
 scope: VFSyOFTYG/VFT3IgGbB
 index: 1
 started_at: 2026-03-31T10:39:37
+submitted_at: 2026-03-31T10:44:00
+completed_at: 2026-03-31T10:44:00
 ---
 
 # Finalize Baseline Repo Conventions
@@ -21,4 +23,4 @@ Define and verify the foundational repository conventions for Mission Zero, incl
 
 ## Acceptance Criteria
 
-- [ ] [SRS-01/AC-01] Repository baseline files and conventions are created or confirmed in an evidence-ready state. <!-- verify: manual, SRS-01:start:end -->
+- [x] [SRS-01/AC-01] Repository baseline files and conventions are created or confirmed in an evidence-ready state. <!-- verify: manual, SRS-01:start:end, proof: ac-1.log-->

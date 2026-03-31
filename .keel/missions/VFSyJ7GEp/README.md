@@ -1,13 +1,14 @@
 ---
 # system-managed
 id: VFSyJ7GEp
-status: active
+status: achieved
 created_at: 2026-03-31T10:16:46
-updated_at: 2026-03-31T10:17:22
+updated_at: 2026-03-31T10:44:17
 # authored
 title: Mission Zero Foundation And Guardrails
 watch: ~
 activated_at: 2026-03-31T10:17:22
+achieved_at: 2026-03-31T10:44:17
 ---
 
 # Mission Zero Foundation And Guardrails

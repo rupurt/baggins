@@ -13,21 +13,21 @@
 
 ## Epics
 
-### [Foundation Guardrail Baseline](epics/VFSyOFTYG/) (active)
+### [Foundation Guardrail Baseline](epics/VFSyOFTYG/) (done)
 
 | Voyage | Status |
 |--------|--------|
-| [Establish Mission-Zero Foundations](epics/VFSyOFTYG/voyages/VFT3IgGbB/) | in-progress |
+| [Establish Mission-Zero Foundations](epics/VFSyOFTYG/voyages/VFT3IgGbB/) | done |
 
-### [Security And Compliance Boundaries](epics/VFSyOIPZQ/) (active)
-
-| Voyage | Status |
-|--------|--------|
-| [Define Security And Compliance Boundaries](epics/VFSyOIPZQ/voyages/VFT3IgXbC/) | in-progress |
-
-### [Transit Schema Contracting](epics/VFSyOLOaZ/) (active)
+### [Security And Compliance Boundaries](epics/VFSyOIPZQ/) (done)
 
 | Voyage | Status |
 |--------|--------|
-| [Create Transit Event Schema Baseline](epics/VFSyOLOaZ/voyages/VFT3IglbD/) | in-progress |
+| [Define Security And Compliance Boundaries](epics/VFSyOIPZQ/voyages/VFT3IgXbC/) | done |
+
+### [Transit Schema Contracting](epics/VFSyOLOaZ/) (done)
+
+| Voyage | Status |
+|--------|--------|
+| [Create Transit Event Schema Baseline](epics/VFSyOLOaZ/voyages/VFT3IglbD/) | done |
 

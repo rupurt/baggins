@@ -21,8 +21,8 @@ mission: VFSyJ7GEp
 ## Voyages
 
 <!-- BEGIN GENERATED -->
-**Progress:** 0/1 voyages complete, 0/1 stories done
+**Progress:** 1/1 voyages complete, 1/1 stories done
 | Voyage | Status | Stories |
 |--------|--------|---------|
-| [Establish Mission-Zero Foundations](voyages/VFT3IgGbB/) | in-progress | 0/1 |
+| [Establish Mission-Zero Foundations](voyages/VFT3IgGbB/) | done | 1/1 |
 <!-- END GENERATED -->

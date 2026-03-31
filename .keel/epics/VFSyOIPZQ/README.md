@@ -21,8 +21,8 @@ mission: VFSyJ7GEp
 ## Voyages
 
 <!-- BEGIN GENERATED -->
-**Progress:** 0/1 voyages complete, 0/1 stories done
+**Progress:** 1/1 voyages complete, 1/1 stories done
 | Voyage | Status | Stories |
 |--------|--------|---------|
-| [Define Security And Compliance Boundaries](voyages/VFT3IgXbC/) | in-progress | 0/1 |
+| [Define Security And Compliance Boundaries](voyages/VFT3IgXbC/) | done | 1/1 |
 <!-- END GENERATED -->

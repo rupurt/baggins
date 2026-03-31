@@ -1,7 +1,7 @@
 ---
 # system-managed
 id: VFT3IgXbC
-status: in-progress
+status: done
 epic: VFSyOIPZQ
 created_at: 2026-03-31T10:36:36
 # authored
@@ -9,6 +9,7 @@ title: Define Security And Compliance Boundaries
 index: 1
 updated_at: 2026-03-31T10:39:19
 started_at: 2026-03-31T10:39:31
+completed_at: 2026-03-31T10:44:00
 ---
 
 # Define Security And Compliance Boundaries
@@ -22,14 +23,16 @@ started_at: 2026-03-31T10:39:31
 |----------|-------------|
 | [SRS.md](SRS.md) | Requirements and verification criteria |
 | [SDD.md](SDD.md) | Architecture and implementation details |
+| [VOYAGE_REPORT.md](VOYAGE_REPORT.md) | Narrative summary of implementation and evidence |
+| [COMPLIANCE_REPORT.md](COMPLIANCE_REPORT.md) | Traceability matrix and verification proof |
 <!-- END DOCUMENTS -->
 
 ## Stories
 
 <!-- BEGIN GENERATED -->
-**Progress:** 0/1 stories complete
+**Progress:** 1/1 stories complete
 
 | Title | Type | Status |
 |-------|------|--------|
-| [Publish Compliance Boundary Policy Pack](../../../../stories/VFT3T9wBL/README.md) | feat | in-progress |
+| [Publish Compliance Boundary Policy Pack](../../../../stories/VFT3T9wBL/README.md) | feat | done |
 <!-- END GENERATED -->

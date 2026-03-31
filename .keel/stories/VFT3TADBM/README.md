@@ -1,9 +1,9 @@
 ---
 # system-managed
 id: VFT3TADBM
-status: in-progress
+status: done
 created_at: 2026-03-31T10:37:16
-updated_at: 2026-03-31T10:39:37
+updated_at: 2026-03-31T10:44:00
 # authored
 title: Define Transit Event Schema Manifests
 type: feat
@@ -11,6 +11,8 @@ operator-signal:
 scope: VFSyOLOaZ/VFT3IglbD
 index: 1
 started_at: 2026-03-31T10:39:37
+submitted_at: 2026-03-31T10:44:00
+completed_at: 2026-03-31T10:44:00
 ---
 
 # Define Transit Event Schema Manifests
@@ -21,4 +23,4 @@ Create versioned transit event schema manifests with ownership metadata and dead
 
 ## Acceptance Criteria
 
-- [ ] [SRS-01/AC-01] Transit schema manifests exist for target event types with version IDs and trace metadata. <!-- verify: manual, SRS-01:start:end -->
+- [x] [SRS-01/AC-01] Transit schema manifests exist for target event types with version IDs and trace metadata. <!-- verify: manual, SRS-01:start:end -->

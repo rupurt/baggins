@@ -21,8 +21,8 @@ mission: VFSyJ7GEp
 ## Voyages
 
 <!-- BEGIN GENERATED -->
-**Progress:** 0/1 voyages complete, 0/1 stories done
+**Progress:** 1/1 voyages complete, 1/1 stories done
 | Voyage | Status | Stories |
 |--------|--------|---------|
-| [Create Transit Event Schema Baseline](voyages/VFT3IglbD/) | in-progress | 0/1 |
+| [Create Transit Event Schema Baseline](voyages/VFT3IglbD/) | done | 1/1 |
 <!-- END GENERATED -->
