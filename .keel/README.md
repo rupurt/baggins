@@ -80,6 +80,13 @@
 | [Eligibility Preflight Coverage Intake](epics/VFTR11pG0/voyages/VFTR2S8LO/) | done |
 | [Eligibility Decision And Escalation Voyage](epics/VFTR11pG0/voyages/VFTR2l5PP/) | done |
 
+### [Mission Five Denial Prevention And Smart Editing Service](epics/VFTWOTc7c/) (active)
+
+| Voyage | Status |
+|--------|--------|
+| [Denial Risk Preflight And Evidence Readiness](epics/VFTWOTc7c/voyages/VFTWQSkBx/) | planned |
+| [Smart Editing And Remediation Orchestration](epics/VFTWOTc7c/voyages/VFTWQT2C2/) | planned |
+
 ### [Foundation Guardrail Baseline](epics/VFSyOFTYG/) (done)
 
 | Voyage | Status |
