@@ -22,8 +22,8 @@ mission: VFSyJACG0
 ## Voyages
 
 <!-- BEGIN GENERATED -->
-**Progress:** 0/1 voyages complete, 0/0 stories done
+**Progress:** 0/1 voyages complete, 0/1 stories done
 | Voyage | Status | Stories |
 |--------|--------|---------|
-| [Ingestion Schema Normalization](voyages/VFT6A4x9t/) | draft | 0/0 |
+| [Ingestion Schema Normalization](voyages/VFT6A4x9t/) | planned | 0/1 |
 <!-- END GENERATED -->

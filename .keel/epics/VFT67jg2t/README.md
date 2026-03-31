@@ -22,8 +22,8 @@ mission: VFSyJACG0
 ## Voyages
 
 <!-- BEGIN GENERATED -->
-**Progress:** 0/1 voyages complete, 0/0 stories done
+**Progress:** 0/1 voyages complete, 0/1 stories done
 | Voyage | Status | Stories |
 |--------|--------|---------|
-| [Intake Preflight Validation](voyages/VFT6A599u/) | draft | 0/0 |
+| [Intake Preflight Validation](voyages/VFT6A599u/) | planned | 0/1 |
 <!-- END GENERATED -->

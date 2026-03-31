@@ -1,12 +1,13 @@
 ---
 # system-managed
 id: VFT6A599u
-status: draft
+status: planned
 epic: VFT67jg2t
 created_at: 2026-03-31T10:47:58
 # authored
 title: Intake Preflight Validation
 index: 1
+updated_at: 2026-03-31T10:50:02
 ---
 
 # Intake Preflight Validation
@@ -25,5 +26,9 @@ index: 1
 ## Stories
 
 <!-- BEGIN GENERATED -->
-**Progress:** 0/0 stories complete
+**Progress:** 0/1 stories complete
+
+| Title | Type | Status |
+|-------|------|--------|
+| [Build Intake Preflight Validation](../../../../stories/VFT6csHfE/README.md) | feat | backlog |
 <!-- END GENERATED -->

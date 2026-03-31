@@ -13,23 +13,23 @@
 
 ## Epics
 
-### [Mission One Intake Ingestion Backbone](epics/VFT67Ot1y/) (draft)
+### [Mission One Intake Ingestion Backbone](epics/VFT67Ot1y/) (active)
 
 | Voyage | Status |
 |--------|--------|
-| [Ingestion Schema Normalization](epics/VFT67Ot1y/voyages/VFT6A4x9t/) | draft |
+| [Ingestion Schema Normalization](epics/VFT67Ot1y/voyages/VFT6A4x9t/) | planned |
 
-### [Clinical Intake Validation](epics/VFT67jg2t/) (draft)
-
-| Voyage | Status |
-|--------|--------|
-| [Intake Preflight Validation](epics/VFT67jg2t/voyages/VFT6A599u/) | draft |
-
-### [Ingestion Observability And Handoff](epics/VFT67jt2u/) (draft)
+### [Clinical Intake Validation](epics/VFT67jg2t/) (active)
 
 | Voyage | Status |
 |--------|--------|
-| [Ingestion Handoff Telemetry](epics/VFT67jt2u/voyages/VFT6A5Q9v/) | draft |
+| [Intake Preflight Validation](epics/VFT67jg2t/voyages/VFT6A599u/) | planned |
+
+### [Ingestion Observability And Handoff](epics/VFT67jt2u/) (active)
+
+| Voyage | Status |
+|--------|--------|
+| [Ingestion Handoff Telemetry](epics/VFT67jt2u/voyages/VFT6A5Q9v/) | planned |
 
 ### [Foundation Guardrail Baseline](epics/VFSyOFTYG/) (done)
 

@@ -1,12 +1,13 @@
 ---
 # system-managed
 id: VFT6A5Q9v
-status: draft
+status: planned
 epic: VFT67jt2u
 created_at: 2026-03-31T10:47:58
 # authored
 title: Ingestion Handoff Telemetry
 index: 1
+updated_at: 2026-03-31T10:50:02
 ---
 
 # Ingestion Handoff Telemetry
@@ -25,5 +26,9 @@ index: 1
 ## Stories
 
 <!-- BEGIN GENERATED -->
-**Progress:** 0/0 stories complete
+**Progress:** 0/1 stories complete
+
+| Title | Type | Status |
+|-------|------|--------|
+| [Emit Auditable Ingestion Handoff Telemetry](../../../../stories/VFT6csVfF/README.md) | feat | backlog |
 <!-- END GENERATED -->
