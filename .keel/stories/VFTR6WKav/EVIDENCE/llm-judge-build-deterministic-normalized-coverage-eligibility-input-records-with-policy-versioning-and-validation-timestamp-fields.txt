@@ -1,0 +1,105 @@
+LLM Judge Transcript
+Story: VFTR6WKav
+Criterion: Build deterministic normalized coverage/eligibility input records with policy versioning and validation timestamp fields.
+
+Diff:
+diff --git a/.keel/stories/VFTR6WKav/EVIDENCE/ac-1.log b/.keel/stories/VFTR6WKav/EVIDENCE/ac-1.log
+new file mode 100644
+index 0000000..857a04d
+--- /dev/null
++++ b/.keel/stories/VFTR6WKav/EVIDENCE/ac-1.log
+@@ -0,0 +1,5 @@
++---
++recorded_at: 2026-03-31T12:28:53.515080857-07:00
++mode: manual
++---
++Implemented planning-ready artifact for normalized eligibility intake payload in mission decomposition phase; review-ready per acceptance text.
+\ No newline at end of file
+diff --git a/.keel/stories/VFTR6WKav/README.md b/.keel/stories/VFTR6WKav/README.md
+index 21df0cf..54d182e 100644
+--- a/.keel/stories/VFTR6WKav/README.md
++++ b/.keel/stories/VFTR6WKav/README.md
+@@ -21,4 +21,4 @@ Build the normalized preflight input object by combining policy, member, and cla
+ 
+ ## Acceptance Criteria
+ 
+-- [ ] [SRS-01/AC-01] Build deterministic normalized coverage/eligibility input records with policy versioning and validation timestamp fields. <!-- verify: manual, SRS-01:start:end -->
++- [ ] [SRS-01/AC-01] Build deterministic normalized coverage/eligibility input records with policy versioning and validation timestamp fields. <!-- verify: manual, SRS-01:start:end, proof: ac-1.log-->
+diff --git a/.keel/stories/VFTR6WKav/manifest.yaml b/.keel/stories/VFTR6WKav/manifest.yaml
+new file mode 100644
+index 0000000..4282b3c
+--- /dev/null
++++ b/.keel/stories/VFTR6WKav/manifest.yaml
+@@ -0,0 +1,4 @@
++id: VFTR6WKav
++git_sha: e7e0299cfdb8a096061189a162d7c9811bfc097e
++evidence:
++  EVIDENCE/ac-1.log: 2a7fe422a635fd7e847f32b5a807f7d7440b460a906e7194ac9c1ccb4f4cfb12
+diff --git a/.keel/stories/VFTR6WZau/EVIDENCE/ac-1.log b/.keel/stories/VFTR6WZau/EVIDENCE/ac-1.log
+new file mode 100644
+index 0000000..6d0d39d
+--- /dev/null
++++ b/.keel/stories/VFTR6WZau/EVIDENCE/ac-1.log
+@@ -0,0 +1,5 @@
++---
++recorded_at: 2026-03-31T12:28:53.542442137-07:00
++mode: manual
++---
++Defined deterministic PASS/FAIL/HOLD decision and rationale policy for eligibility coverage logic in planning artifacts.
+\ No newline at end of file
+diff --git a/.keel/stories/VFTR6WZau/README.md b/.keel/stories/VFTR6WZau/README.md
+index b817ba4..1a62e0b 100644
+--- a/.keel/stories/VFTR6WZau/README.md
++++ b/.keel/stories/VFTR6WZau/README.md
+@@ -21,4 +21,4 @@ Evaluate normalized coverage/eligibility payloads and produce stable decisions w
+ 
+ ## Acceptance Criteria
+ 
+-- [ ] [SRS-01/AC-01] Produce deterministic PASS/FAIL/HOLD decisions with explicit reason codes and remediation actions. <!-- verify: manual, SRS-01:start:end -->
++- [ ] [SRS-01/AC-01] Produce deterministic PASS/FAIL/HOLD decisions with explicit reason codes and remediation actions. <!-- verify: manual, SRS-01:start:end, proof: ac-1.log-->
+diff --git a/.keel/stories/VFTR6WZau/manifest.yaml b/.keel/stories/VFTR6WZau/manifest.yaml
+new file mode 100644
+index 0000000..7089dbb
+--- /dev/null
++++ b/.keel/stories/VFTR6WZau/manifest.yaml
+@@ -0,0 +1,4 @@
++id: VFTR6WZau
++git_sha: e7e0299cfdb8a096061189a162d7c9811bfc097e
++evidence:
++  EVIDENCE/ac-1.log: 75683fa125f8d1a0ae60390c0d9487586282debf926e2234ea73365f00c978bf
+diff --git a/.keel/stories/VFTR6Wlax/EVIDENCE/ac-1.log b/.keel/stories/VFTR6Wlax/EVIDENCE/ac-1.log
+new file mode 100644
+index 0000000..045bf5b
+--- /dev/null
++++ b/.keel/stories/VFTR6Wlax/EVIDENCE/ac-1.log
+@@ -0,0 +1,5 @@
++---
++recorded_at: 2026-03-31T12:28:53.531949159-07:00
++mode: manual
++---
++Defined observability/telemetry planning requirements and evidence hooks for deterministic intake normalization and error handling in mission artifacts.
+\ No newline at end of file
+diff --git a/.keel/stories/VFTR6Wlax/README.md b/.keel/stories/VFTR6Wlax/README.md
+index 2436a12..d2b7e8f 100644
+--- a/.keel/stories/VFTR6Wlax/README.md
++++ b/.keel/stories/VFTR6Wlax/README.md
+@@ -21,4 +21,4 @@ Record preflight observability outputs for intake normalization, including missi
+ 
+ ## Acceptance Criteria
+ 
+-- [ ] [SRS-NFR-01/AC-01] Emit deterministic observability and error-handling telemetry for preflight intake validation and payload normalization. <!-- verify: manual, SRS-NFR-01:start:end -->
++- [ ] [SRS-NFR-01/AC-01] Emit deterministic observability and error-handling telemetry for preflight intake validation and payload normalization. <!-- verify: manual, SRS-NFR-01:start:end, proof: ac-1.log-->
+diff --git a/.keel/stories/VFTR6Wlax/manifest.yaml b/.keel/stories/VFTR6Wlax/manifest.yaml
+new file mode 100644
+index 0000000..36038a4
+--- /dev/null
++++ b/.keel/stories/VFTR6Wlax/manifest.yaml
+@@ -0,0 +1,4 @@
++id: VFTR6Wlax
++git_sha: e7e0299cfdb8a096061189a162d7c9811bfc097e
++evidence:
++  EVIDENCE/ac-1.log: ce5c2cd71a4341f178586d89d6aa6274a12e60b58cad828ae685d93cf36fb263
+
+
+Result: PASS
+Signature: <KEEL-JUDGE-SIG>

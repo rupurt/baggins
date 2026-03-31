@@ -1,0 +1,6 @@
+id: VFTR6WKav
+git_sha: e7e0299cfdb8a096061189a162d7c9811bfc097e
+evidence:
+  EVIDENCE/ac-1.log: 1e274b2fd9cffae4e89a239bef60123a9f61f3115118c563e32b51ce9467a280
+  ? EVIDENCE/llm-judge-build-deterministic-normalized-coverage-eligibility-input-records-with-policy-versioning-and-validation-timestamp-fields.txt
+  : 56e8d6cf9b78f9268a3d1f6d28310d61a2a05fb4aa785d670d7077b84598cb63
