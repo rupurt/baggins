@@ -245,6 +245,13 @@ struct ErrorPayload {
     next_allowed_actions: Vec<String>,
 }
 
+#[derive(Clone, Debug, Serialize)]
+struct OwnershipMetadata {
+    case_owner: String,
+    owner_role: String,
+    ownership_scope: String,
+}
+
 #[derive(Debug, Serialize)]
 struct AuditResponse {
     request_id: String,
@@ -276,6 +283,122 @@ fn value_hash(value: &Option<Value>) -> String {
         Some(value) => make_hash(&[&value.to_string()]),
         None => make_hash(&["null"]),
     }
+}
+
+fn biller_validation_status(case_record: &BillerCase) -> String {
+    if case_record
+        .unresolved_actions
+        .iter()
+        .any(|action| action == "validate")
+    {
+        "validation_required".to_string()
+    } else {
+        "validation_passed".to_string()
+    }
+}
+
+fn payer_validation_status(_case_record: &PayerDenialCase) -> String {
+    "not_applicable".to_string()
+}
+
+fn biller_ownership_metadata(case_record: &BillerCase) -> OwnershipMetadata {
+    OwnershipMetadata {
+        case_owner: case_record.owner.clone(),
+        owner_role: "biller_operator".to_string(),
+        ownership_scope: "workflow_queue".to_string(),
+    }
+}
+
+fn payer_ownership_metadata(case_record: &PayerDenialCase) -> OwnershipMetadata {
+    OwnershipMetadata {
+        case_owner: case_record.payer.clone(),
+        owner_role: "payer_team".to_string(),
+        ownership_scope: "payer_queue".to_string(),
+    }
+}
+
+fn biller_queue_state_transition_readiness(case_record: &BillerCase) -> Vec<String> {
+    ["validate", "retry", "escalate", "hold", "submit_draft"]
+        .into_iter()
+        .filter_map(|command| {
+            let mut preview = case_record.clone();
+            let result = biller_transition(&mut preview, command, "readiness-calculator");
+            result
+                .ok()
+                .and_then(|(resulting_status, resulting_queue_state)| {
+                    if resulting_status != case_record.status
+                        || resulting_queue_state != case_record.queue_state
+                    {
+                        Some(command.to_string())
+                    } else {
+                        None
+                    }
+                })
+        })
+        .collect()
+}
+
+fn payer_queue_state_transition_readiness(case_record: &PayerDenialCase) -> Vec<String> {
+    [
+        "triage",
+        "draft_appeal",
+        "submit_response",
+        "escalate",
+        "hold",
+    ]
+    .into_iter()
+    .filter_map(|command| {
+        let mut preview = case_record.clone();
+        let result = payer_transition(&mut preview, command, "readiness-calculator");
+        result
+            .ok()
+            .and_then(|(resulting_status, _resulting_queue_state)| {
+                if resulting_status != case_record.status {
+                    Some(command.to_string())
+                } else {
+                    None
+                }
+            })
+    })
+    .collect()
+}
+
+fn assemble_biller_case_payload(case_record: &BillerCase) -> Value {
+    let mut payload = serde_json::to_value(case_record).unwrap_or_else(|_| json!({}));
+    if let Some(payload_object) = payload.as_object_mut() {
+        payload_object.insert(
+            "validation_status".to_string(),
+            Value::String(biller_validation_status(case_record)),
+        );
+        payload_object.insert(
+            "ownership_metadata".to_string(),
+            json!(biller_ownership_metadata(case_record)),
+        );
+        payload_object.insert(
+            "queue_state_transition_readiness".to_string(),
+            json!(biller_queue_state_transition_readiness(case_record)),
+        );
+    }
+    payload
+}
+
+fn assemble_payer_case_payload(case_record: &PayerDenialCase) -> Value {
+    let mut payload = serde_json::to_value(case_record).unwrap_or_else(|_| json!({}));
+    if let Some(payload_object) = payload.as_object_mut() {
+        payload_object.insert(
+            "validation_status".to_string(),
+            Value::String(payer_validation_status(case_record)),
+        );
+        payload_object.insert(
+            "ownership_metadata".to_string(),
+            json!(payer_ownership_metadata(case_record)),
+        );
+        payload_object.insert(
+            "queue_state_transition_readiness".to_string(),
+            json!(payer_queue_state_transition_readiness(case_record)),
+        );
+    }
+    payload
 }
 
 fn paginate<T>(items: Vec<T>, cursor: Option<usize>, limit: usize) -> (Vec<T>, Option<usize>) {
@@ -770,49 +893,45 @@ async fn get_case(
 
     let state = state.read().await;
     if let Some(case_record) = state.biller_cases.get(&case_id) {
-        let payload = serde_json::to_value(case_record).ok();
-        if let Some(payload) = payload {
-            return (
-                StatusCode::OK,
-                Json(CaseEnvelope {
-                    request_id,
-                    case_id: case_record.case_id.clone(),
-                    case_type: "biller".to_string(),
-                    case_data: payload,
-                    timeline_last_100: case_record
-                        .timeline
-                        .iter()
-                        .rev()
-                        .take(100)
-                        .cloned()
-                        .collect(),
-                }),
-            )
-                .into_response();
-        }
+        let payload = assemble_biller_case_payload(case_record);
+        return (
+            StatusCode::OK,
+            Json(CaseEnvelope {
+                request_id,
+                case_id: case_record.case_id.clone(),
+                case_type: "biller".to_string(),
+                case_data: payload,
+                timeline_last_100: case_record
+                    .timeline
+                    .iter()
+                    .rev()
+                    .take(100)
+                    .cloned()
+                    .collect(),
+            }),
+        )
+            .into_response();
     }
 
     if let Some(case_record) = state.payer_cases.get(&case_id) {
-        let payload = serde_json::to_value(case_record).ok();
-        if let Some(payload) = payload {
-            return (
-                StatusCode::OK,
-                Json(CaseEnvelope {
-                    request_id,
-                    case_id: case_record.case_id.clone(),
-                    case_type: "payer_denial".to_string(),
-                    case_data: payload,
-                    timeline_last_100: case_record
-                        .timeline
-                        .iter()
-                        .rev()
-                        .take(100)
-                        .cloned()
-                        .collect(),
-                }),
-            )
-                .into_response();
-        }
+        let payload = assemble_payer_case_payload(case_record);
+        return (
+            StatusCode::OK,
+            Json(CaseEnvelope {
+                request_id,
+                case_id: case_record.case_id.clone(),
+                case_type: "payer_denial".to_string(),
+                case_data: payload,
+                timeline_last_100: case_record
+                    .timeline
+                    .iter()
+                    .rev()
+                    .take(100)
+                    .cloned()
+                    .collect(),
+            }),
+        )
+            .into_response();
     }
 
     (
@@ -1073,7 +1192,11 @@ impl fmt::Display for Role {
 
 #[cfg(test)]
 mod tests {
-    use super::{anonymize_mrn, make_hash, payer_transition_preview, seeded_state, Role};
+    use super::{
+        anonymize_mrn, assemble_biller_case_payload, assemble_payer_case_payload, make_hash,
+        payer_transition_preview, seeded_state, Role,
+    };
+    use serde_json::json;
 
     #[test]
     fn role_policy_is_deterministic() {
@@ -1115,5 +1238,43 @@ mod tests {
         let first = anonymize_mrn("MRN-2040");
         let second = anonymize_mrn("mrn-2040");
         assert_eq!(first, second);
+    }
+
+    #[test]
+    fn claim_assembly_payload_includes_readiness_and_ownership_metadata() {
+        let state = seeded_state();
+
+        let biller_case = state
+            .biller_cases
+            .get("BILLER-1001")
+            .expect("known biller case");
+        let biller_payload = assemble_biller_case_payload(biller_case);
+        assert_eq!(
+            biller_payload["validation_status"],
+            json!("validation_required")
+        );
+        assert_eq!(
+            biller_payload["ownership_metadata"]["case_owner"],
+            json!("operator-a")
+        );
+        assert!(biller_payload["queue_state_transition_readiness"]
+            .as_array()
+            .expect("readiness array")
+            .contains(&json!("validate")));
+
+        let payer_case = state
+            .payer_cases
+            .get("DENIAL-3001")
+            .expect("known payer case");
+        let payer_payload = assemble_payer_case_payload(payer_case);
+        assert_eq!(payer_payload["validation_status"], json!("not_applicable"));
+        assert_eq!(
+            payer_payload["ownership_metadata"]["case_owner"],
+            json!("UnitedCare")
+        );
+        assert!(payer_payload["queue_state_transition_readiness"]
+            .as_array()
+            .expect("readiness array")
+            .contains(&json!("triage")));
     }
 }

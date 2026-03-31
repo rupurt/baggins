@@ -1,0 +1,384 @@
+LLM Judge Transcript
+Story: VFTN02KSI
+Criterion: Produce a deterministic claim assembly payload for biller and payer views that includes validation status, ownership metadata, and queue-state transition readiness.
+
+Diff:
+diff --git a/.keel/README.md b/.keel/README.md
+index 6f6e646..1ce10b5 100644
+--- a/.keel/README.md
++++ b/.keel/README.md
+@@ -71,7 +71,7 @@
+ 
+ | Voyage | Status |
+ |--------|--------|
+-| [Claim Assembly Orchestration](epics/VFTMxV7Mr/voyages/VFTMy4JOd/) | planned |
++| [Claim Assembly Orchestration](epics/VFTMxV7Mr/voyages/VFTMy4JOd/) | in-progress |
+ 
+ ### [Foundation Guardrail Baseline](epics/VFSyOFTYG/) (done)
+ 
+diff --git a/.keel/epics/VFTMxV7Mr/README.md b/.keel/epics/VFTMxV7Mr/README.md
+index 14eb366..0408f82 100644
+--- a/.keel/epics/VFTMxV7Mr/README.md
++++ b/.keel/epics/VFTMxV7Mr/README.md
+@@ -25,5 +25,5 @@ mission: VFSyJG8II
+ **Progress:** 0/1 voyages complete, 0/1 stories done
+ | Voyage | Status | Stories |
+ |--------|--------|---------|
+-| [Claim Assembly Orchestration](voyages/VFTMy4JOd/) | planned | 0/1 |
++| [Claim Assembly Orchestration](voyages/VFTMy4JOd/) | in-progress | 0/1 |
+ <!-- END GENERATED -->
+diff --git a/.keel/epics/VFTMxV7Mr/voyages/VFTMy4JOd/README.md b/.keel/epics/VFTMxV7Mr/voyages/VFTMy4JOd/README.md
+index b087c03..0458c62 100644
+--- a/.keel/epics/VFTMxV7Mr/voyages/VFTMy4JOd/README.md
++++ b/.keel/epics/VFTMxV7Mr/voyages/VFTMy4JOd/README.md
+@@ -1,13 +1,14 @@
+ ---
+ # system-managed
+ id: VFTMy4JOd
+-status: planned
++status: in-progress
+ epic: VFTMxV7Mr
+ created_at: 2026-03-31T11:54:43
+ # authored
+ title: Claim Assembly Orchestration
+ index: 1
+ updated_at: 2026-03-31T11:55:20
++started_at: 2026-03-31T11:59:37
+ ---
+ 
+ # Claim Assembly Orchestration
+@@ -30,5 +31,5 @@ updated_at: 2026-03-31T11:55:20
+ 
+ | Title | Type | Status |
+ |-------|------|--------|
+-| [Assemble Claim Payloads](../../../../stories/VFTN02KSI/README.md) | feat | backlog |
++| [Assemble Claim Payloads](../../../../stories/VFTN02KSI/README.md) | feat | in-progress |
+ <!-- END GENERATED -->
+diff --git a/.keel/stories/VFTN02KSI/EVIDENCE/ac-1.log b/.keel/stories/VFTN02KSI/EVIDENCE/ac-1.log
+new file mode 100644
+index 0000000..9ccbb71
+--- /dev/null
++++ b/.keel/stories/VFTN02KSI/EVIDENCE/ac-1.log
+@@ -0,0 +1,5 @@
++---
++recorded_at: 2026-03-31T12:00:43.743668784-07:00
++mode: manual
++---
++Added deterministic claim assembly payload enrichment on /v1/cases/{case_id} for biller and payer cases, including validation_status, ownership_metadata, and queue_state_transition_readiness fields; added unit tests covering ownership/validation/readiness assembly for known seeded cases.
+\ No newline at end of file
+diff --git a/.keel/stories/VFTN02KSI/README.md b/.keel/stories/VFTN02KSI/README.md
+index d55328f..87e6669 100644
+--- a/.keel/stories/VFTN02KSI/README.md
++++ b/.keel/stories/VFTN02KSI/README.md
+@@ -1,15 +1,16 @@
+ ---
+ # system-managed
+ id: VFTN02KSI
+-status: backlog
++status: in-progress
+ created_at: 2026-03-31T11:54:51
+-updated_at: 2026-03-31T11:55:20
++updated_at: 2026-03-31T11:59:37
+ # authored
+ title: Assemble Claim Payloads
+ type: feat
+ operator-signal:
+ scope: VFTMxV7Mr/VFTMy4JOd
+ index: 1
++started_at: 2026-03-31T11:59:37
+ ---
+ 
+ # Assemble Claim Payloads
+@@ -20,4 +21,4 @@ Create a deterministic claim-assembly workflow that combines validated coding si
+ 
+ ## Acceptance Criteria
+ 
+-- [ ] [SRS-01/AC-01] Produce a deterministic claim assembly payload for biller and payer views that includes validation status, ownership metadata, and queue-state transition readiness. <!-- verify: manual, SRS-01:start:end -->
++- [ ] [SRS-01/AC-01] Produce a deterministic claim assembly payload for biller and payer views that includes validation status, ownership metadata, and queue-state transition readiness. <!-- verify: manual, SRS-01:start:end, proof: ac-1.log-->
+diff --git a/.keel/stories/VFTN02KSI/manifest.yaml b/.keel/stories/VFTN02KSI/manifest.yaml
+new file mode 100644
+index 0000000..2427260
+--- /dev/null
++++ b/.keel/stories/VFTN02KSI/manifest.yaml
+@@ -0,0 +1,4 @@
++id: VFTN02KSI
++git_sha: ce58f53830c41caefe2af2b9cbec3eeb28ab199b
++evidence:
++  EVIDENCE/ac-1.log: e06761bcd483af19a6b0989253e604e7215e4178033a358494272d2ae50b3403
+diff --git a/src/server.rs b/src/server.rs
+index d94949b..870e83a 100644
+--- a/src/server.rs
++++ b/src/server.rs
+@@ -245,6 +245,13 @@ struct ErrorPayload {
+     next_allowed_actions: Vec<String>,
+ }
+ 
++#[derive(Clone, Debug, Serialize)]
++struct OwnershipMetadata {
++    case_owner: String,
++    owner_role: String,
++    ownership_scope: String,
++}
++
+ #[derive(Debug, Serialize)]
+ struct AuditResponse {
+     request_id: String,
+@@ -278,6 +285,118 @@ fn value_hash(value: &Option<Value>) -> String {
+     }
+ }
+ 
++fn biller_validation_status(case_record: &BillerCase) -> String {
++    if case_record
++        .unresolved_actions
++        .iter()
++        .any(|action| action == "validate")
++    {
++        "validation_required".to_string()
++    } else {
++        "validation_passed".to_string()
++    }
++}
++
++fn payer_validation_status(_case_record: &PayerDenialCase) -> String {
++    "not_applicable".to_string()
++}
++
++fn biller_ownership_metadata(case_record: &BillerCase) -> OwnershipMetadata {
++    OwnershipMetadata {
++        case_owner: case_record.owner.clone(),
++        owner_role: "biller_operator".to_string(),
++        ownership_scope: "workflow_queue".to_string(),
++    }
++}
++
++fn payer_ownership_metadata(case_record: &PayerDenialCase) -> OwnershipMetadata {
++    OwnershipMetadata {
++        case_owner: case_record.payer.clone(),
++        owner_role: "payer_team".to_string(),
++        ownership_scope: "payer_queue".to_string(),
++    }
++}
++
++fn biller_queue_state_transition_readiness(case_record: &BillerCase) -> Vec<String> {
++    ["validate", "retry", "escalate", "hold", "submit_draft"]
++        .into_iter()
++        .filter_map(|command| {
++            let mut preview = case_record.clone();
++            let result = biller_transition(&mut preview, command, "readiness-calculator");
++            result
++                .ok()
++                .and_then(|(resulting_status, resulting_queue_state)| {
++                    if resulting_status != case_record.status
++                        || resulting_queue_state != case_record.queue_state
++                    {
++                        Some(command.to_string())
++                    } else {
++                        None
++                    }
++                })
++        })
++        .collect()
++}
++
++fn payer_queue_state_transition_readiness(case_record: &PayerDenialCase) -> Vec<String> {
++    ["triage", "draft_appeal", "submit_response", "escalate", "hold"]
++        .into_iter()
++        .filter_map(|command| {
++            let mut preview = case_record.clone();
++            let result = payer_transition(&mut preview, command, "readiness-calculator");
++            result
++                .ok()
++                .and_then(|(resulting_status, resulting_queue_state)| {
++                    if resulting_status != case_record.status
++                        || resulting_queue_state != case_record.queue_state
++                    {
++                        Some(command.to_string())
++                    } else {
++                        None
++                    }
++                })
++        })
++        .collect()
++}
++
++fn assemble_biller_case_payload(case_record: &BillerCase) -> Value {
++    let mut payload = serde_json::to_value(case_record).unwrap_or_else(|_| json!({}));
++    if let Some(payload_object) = payload.as_object_mut() {
++        payload_object.insert(
++            "validation_status".to_string(),
++            Value::String(biller_validation_status(case_record)),
++        );
++        payload_object.insert(
++            "ownership_metadata".to_string(),
++            json!(biller_ownership_metadata(case_record)),
++        );
++        payload_object.insert(
++            "queue_state_transition_readiness".to_string(),
++            json!(biller_queue_state_transition_readiness(case_record)),
++        );
++    }
++    payload
++}
++
++fn assemble_payer_case_payload(case_record: &PayerDenialCase) -> Value {
++    let mut payload = serde_json::to_value(case_record).unwrap_or_else(|_| json!({}));
++    if let Some(payload_object) = payload.as_object_mut() {
++        payload_object.insert(
++            "validation_status".to_string(),
++            Value::String(payer_validation_status(case_record)),
++        );
++        payload_object.insert(
++            "ownership_metadata".to_string(),
++            json!(payer_ownership_metadata(case_record)),
++        );
++        payload_object.insert(
++            "queue_state_transition_readiness".to_string(),
++            json!(payer_queue_state_transition_readiness(case_record)),
++        );
++    }
++    payload
++}
++
+ fn paginate<T>(items: Vec<T>, cursor: Option<usize>, limit: usize) -> (Vec<T>, Option<usize>) {
+     let offset = cursor.unwrap_or(0);
+     let mut next_cursor = None;
+@@ -770,49 +889,45 @@ async fn get_case(
+ 
+     let state = state.read().await;
+     if let Some(case_record) = state.biller_cases.get(&case_id) {
+-        let payload = serde_json::to_value(case_record).ok();
+-        if let Some(payload) = payload {
+-            return (
+-                StatusCode::OK,
+-                Json(CaseEnvelope {
+-                    request_id,
+-                    case_id: case_record.case_id.clone(),
+-                    case_type: "biller".to_string(),
+-                    case_data: payload,
+-                    timeline_last_100: case_record
+-                        .timeline
+-                        .iter()
+-                        .rev()
+-                        .take(100)
+-                        .cloned()
+-                        .collect(),
+-                }),
+-            )
+-                .into_response();
+-        }
++        let payload = assemble_biller_case_payload(case_record);
++        return (
++            StatusCode::OK,
++            Json(CaseEnvelope {
++                request_id,
++                case_id: case_record.case_id.clone(),
++                case_type: "biller".to_string(),
++                case_data: payload,
++                timeline_last_100: case_record
++                    .timeline
++                    .iter()
++                    .rev()
++                    .take(100)
++                    .cloned()
++                    .collect(),
++            }),
++        )
++            .into_response();
+     }
+ 
+     if let Some(case_record) = state.payer_cases.get(&case_id) {
+-        let payload = serde_json::to_value(case_record).ok();
+-        if let Some(payload) = payload {
+-            return (
+-                StatusCode::OK,
+-                Json(CaseEnvelope {
+-                    request_id,
+-                    case_id: case_record.case_id.clone(),
+-                    case_type: "payer_denial".to_string(),
+-                    case_data: payload,
+-                    timeline_last_100: case_record
+-                        .timeline
+-                        .iter()
+-                        .rev()
+-                        .take(100)
+-                        .cloned()
+-                        .collect(),
+-                }),
+-            )
+-                .into_response();
+-        }
++        let payload = assemble_payer_case_payload(case_record);
++        return (
++            StatusCode::OK,
++            Json(CaseEnvelope {
++                request_id,
++                case_id: case_record.case_id.clone(),
++                case_type: "payer_denial".to_string(),
++                case_data: payload,
++                timeline_last_100: case_record
++                    .timeline
++                    .iter()
++                    .rev()
++                    .take(100)
++                    .cloned()
++                    .collect(),
++            }),
++        )
++            .into_response();
+     }
+ 
+     (
+@@ -1073,7 +1188,11 @@ impl fmt::Display for Role {
+ 
+ #[cfg(test)]
+ mod tests {
+-    use super::{anonymize_mrn, make_hash, payer_transition_preview, seeded_state, Role};
++    use super::{
++        anonymize_mrn, assemble_biller_case_payload, assemble_payer_case_payload, make_hash,
++        payer_transition_preview, seeded_state, Role,
++    };
++    use serde_json::json;
+ 
+     #[test]
+     fn role_policy_is_deterministic() {
+@@ -1116,4 +1235,36 @@ mod tests {
+         let second = anonymize_mrn("mrn-2040");
+         assert_eq!(first, second);
+     }
++
++    #[test]
++    fn claim_assembly_payload_includes_readiness_and_ownership_metadata() {
++        let state = seeded_state();
++
++        let biller_case = state.biller_cases.get("BILLER-1001").expect("known biller case");
++        let biller_payload = assemble_biller_case_payload(biller_case);
++        assert_eq!(
++            biller_payload["validation_status"],
++            json!("validation_required")
++        );
++        assert_eq!(
++            biller_payload["ownership_metadata"]["case_owner"],
++            json!("operator-a")
++        );
++        assert!(biller_payload["queue_state_transition_readiness"]
++            .as_array()
++            .expect("readiness array")
++            .contains(&json!("validate")));
++
++        let payer_case = state.payer_cases.get("DENIAL-3001").expect("known payer case");
++        let payer_payload = assemble_payer_case_payload(payer_case);
++        assert_eq!(payer_payload["validation_status"], json!("not_applicable"));
++        assert_eq!(
++            payer_payload["ownership_metadata"]["case_owner"],
++            json!("UnitedCare")
++        );
++        assert!(payer_payload["queue_state_transition_readiness"]
++            .as_array()
++            .expect("readiness array")
++            .contains(&json!("triage")));
++    }
+ }
+
+
+Result: PASS
+Signature: <KEEL-JUDGE-SIG>

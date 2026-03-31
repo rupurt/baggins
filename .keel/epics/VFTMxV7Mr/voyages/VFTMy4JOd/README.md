@@ -1,13 +1,14 @@
 ---
 # system-managed
 id: VFTMy4JOd
-status: planned
+status: in-progress
 epic: VFTMxV7Mr
 created_at: 2026-03-31T11:54:43
 # authored
 title: Claim Assembly Orchestration
 index: 1
 updated_at: 2026-03-31T11:55:20
+started_at: 2026-03-31T11:59:37
 ---
 
 # Claim Assembly Orchestration
@@ -30,5 +31,5 @@ updated_at: 2026-03-31T11:55:20
 
 | Title | Type | Status |
 |-------|------|--------|
-| [Assemble Claim Payloads](../../../../stories/VFTN02KSI/README.md) | feat | backlog |
+| [Assemble Claim Payloads](../../../../stories/VFTN02KSI/README.md) | feat | in-progress |
 <!-- END GENERATED -->

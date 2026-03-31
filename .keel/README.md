@@ -71,7 +71,7 @@
 
 | Voyage | Status |
 |--------|--------|
-| [Claim Assembly Orchestration](epics/VFTMxV7Mr/voyages/VFTMy4JOd/) | planned |
+| [Claim Assembly Orchestration](epics/VFTMxV7Mr/voyages/VFTMy4JOd/) | in-progress |
 
 ### [Foundation Guardrail Baseline](epics/VFSyOFTYG/) (done)
 
