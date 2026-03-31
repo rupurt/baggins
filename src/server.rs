@@ -1,10 +1,10 @@
-use std::collections::HashMap;
 use std::collections::hash_map::DefaultHasher;
+use std::collections::HashMap;
 use std::fmt;
 use std::hash::{Hash, Hasher};
-use std::time::{SystemTime, UNIX_EPOCH};
 use std::net::SocketAddr;
 use std::sync::Arc;
+use std::time::{SystemTime, UNIX_EPOCH};
 
 use axum::extract::{Path, Query, State};
 use axum::http::{HeaderMap, StatusCode};
@@ -149,13 +149,21 @@ impl Role {
                 "submit_response",
             ],
             Role::Biller => &["validate", "retry", "escalate", "hold", "submit_draft"],
-            Role::Payer => &["triage", "draft_appeal", "submit_response", "escalate", "hold"],
+            Role::Payer => &[
+                "triage",
+                "draft_appeal",
+                "submit_response",
+                "escalate",
+                "hold",
+            ],
             Role::Unknown => &[],
         }
     }
 
     fn command_allowed(&self, command: &str) -> bool {
-        self.allowed_commands().iter().any(|allowed| *allowed == command)
+        self.allowed_commands()
+            .iter()
+            .any(|allowed| *allowed == command)
     }
 }
 
@@ -268,7 +276,11 @@ fn paginate<T>(items: Vec<T>, cursor: Option<usize>, limit: usize) -> (Vec<T>, O
     let offset = cursor.unwrap_or(0);
     let mut next_cursor = None;
     let total = items.len();
-    let paged = items.into_iter().skip(offset).take(limit).collect::<Vec<_>>();
+    let paged = items
+        .into_iter()
+        .skip(offset)
+        .take(limit)
+        .collect::<Vec<_>>();
     if offset + paged.len() < total {
         next_cursor = Some(offset + paged.len());
     }
@@ -294,10 +306,7 @@ fn biller_default_cases() -> HashMap<String, BillerCase> {
         owner: "operator-a".to_string(),
         status: "open".to_string(),
         queue_state: "ready_for_action".to_string(),
-        unresolved_actions: vec![
-            "validate".to_string(),
-            "submit_draft".to_string(),
-        ],
+        unresolved_actions: vec!["validate".to_string(), "submit_draft".to_string()],
         risk_hints: vec!["duplicate diagnosis".to_string()],
         timeline: vec![
             TimelineEvent {
@@ -313,9 +322,7 @@ fn biller_default_cases() -> HashMap<String, BillerCase> {
                 detail: "awaiting_bill_action".to_string(),
             },
         ],
-        evidence_links: vec![
-            "cloud://transit/evidence/BILLER-1001/patient-summary".to_string(),
-        ],
+        evidence_links: vec!["cloud://transit/evidence/BILLER-1001/patient-summary".to_string()],
     };
     cases.insert(case_one.case_id.clone(), case_one);
 
@@ -339,9 +346,7 @@ fn biller_default_cases() -> HashMap<String, BillerCase> {
             state: "received".to_string(),
             detail: "new_queue_item".to_string(),
         }],
-        evidence_links: vec![
-            "cloud://transit/evidence/BILLER-1002/patient-summary".to_string(),
-        ],
+        evidence_links: vec!["cloud://transit/evidence/BILLER-1002/patient-summary".to_string()],
     };
     cases.insert(case_two.case_id.clone(), case_two);
 
@@ -399,9 +404,7 @@ fn payer_default_cases() -> HashMap<String, PayerDenialCase> {
             state: "denial_received".to_string(),
             detail: "payer returned reason code PR-22".to_string(),
         }],
-        evidence_links: vec![
-            "cloud://transit/evidence/DENIAL-3002/denial-record".to_string(),
-        ],
+        evidence_links: vec!["cloud://transit/evidence/DENIAL-3002/denial-record".to_string()],
     };
     cases.insert(case_two.case_id.clone(), case_two);
 
@@ -445,7 +448,10 @@ fn biller_transition(
         "escalate" => {
             case_record.status = "escalated".to_string();
             case_record.queue_state = "manual_review_required".to_string();
-            Ok(("escalated".to_string(), "manual_review_required".to_string()))
+            Ok((
+                "escalated".to_string(),
+                "manual_review_required".to_string(),
+            ))
         }
         "hold" => {
             case_record.queue_state = "on_hold".to_string();
@@ -535,7 +541,10 @@ fn payer_transition_preview(
 }
 
 fn role_next_actions(role: Role) -> Vec<String> {
-    role.allowed_commands().iter().map(|value| value.to_string()).collect()
+    role.allowed_commands()
+        .iter()
+        .map(|value| value.to_string())
+        .collect()
 }
 
 fn unauthorized(
@@ -595,7 +604,13 @@ async fn biller_search(
     let request_id = make_hash(&[&now_iso_now(), "biller_search"]);
     let role = Role::from_headers(&headers);
     if !role.can_search_biller() {
-        return unauthorized(request_id, "biller search requires biller role", true, &["biller"]).into_response();
+        return unauthorized(
+            request_id,
+            "biller search requires biller role",
+            true,
+            &["biller"],
+        )
+        .into_response();
     }
 
     let limit = params.limit.unwrap_or(DEFAULT_LIMIT).max(1).min(100);
@@ -612,12 +627,14 @@ async fn biller_search(
                     || case_data.mrn.to_lowercase().contains(&lowered)
                     || case_data.claim_id.to_lowercase().contains(&lowered)
             });
-            let status_filter = params.status.as_ref().map_or(true, |status| {
-                case_data.status.eq_ignore_ascii_case(status)
-            });
-            let owner_filter = params.owner.as_ref().map_or(true, |owner| {
-                case_data.owner.eq_ignore_ascii_case(owner)
-            });
+            let status_filter = params
+                .status
+                .as_ref()
+                .map_or(true, |status| case_data.status.eq_ignore_ascii_case(status));
+            let owner_filter = params
+                .owner
+                .as_ref()
+                .map_or(true, |owner| case_data.owner.eq_ignore_ascii_case(owner));
             text_filter && status_filter && owner_filter
         })
         .cloned()
@@ -625,6 +642,7 @@ async fn biller_search(
 
     matches.sort_by_key(biller_sort_key);
     let (items, next_cursor) = paginate(matches, cursor, limit);
+    let count = items.len();
 
     (
         StatusCode::OK,
@@ -632,7 +650,7 @@ async fn biller_search(
             request_id,
             items,
             next_cursor,
-            count: items.len(),
+            count,
         }),
     )
         .into_response()
@@ -646,7 +664,13 @@ async fn payer_search(
     let request_id = make_hash(&[&now_iso_now(), "payer_search"]);
     let role = Role::from_headers(&headers);
     if !role.can_search_payer() {
-        return unauthorized(request_id, "payer search requires payer role", true, &["payer"]).into_response();
+        return unauthorized(
+            request_id,
+            "payer search requires payer role",
+            true,
+            &["payer"],
+        )
+        .into_response();
     }
 
     let limit = params.limit.unwrap_or(DEFAULT_LIMIT).max(1).min(100);
@@ -657,20 +681,26 @@ async fn payer_search(
         .payer_cases
         .values()
         .filter(|case_data| {
-            let payer_filter = params.payer.as_ref().map_or(true, |payer| {
-                case_data.payer.eq_ignore_ascii_case(payer)
-            });
+            let payer_filter = params
+                .payer
+                .as_ref()
+                .map_or(true, |payer| case_data.payer.eq_ignore_ascii_case(payer));
             let reason_filter = params.reason.as_ref().map_or(true, |reason| {
                 case_data
                     .denial_reason
                     .to_lowercase()
                     .contains(&reason.to_lowercase())
             });
-            let status_filter = params.status.as_ref().map_or(true, |status| {
-                case_data.status.eq_ignore_ascii_case(status)
-            });
-            let min_age_filter = params.age_min.map_or(true, |min_age| case_data.age_days >= min_age);
-            let max_age_filter = params.age_max.map_or(true, |max_age| case_data.age_days <= max_age);
+            let status_filter = params
+                .status
+                .as_ref()
+                .map_or(true, |status| case_data.status.eq_ignore_ascii_case(status));
+            let min_age_filter = params
+                .age_min
+                .map_or(true, |min_age| case_data.age_days >= min_age);
+            let max_age_filter = params
+                .age_max
+                .map_or(true, |max_age| case_data.age_days <= max_age);
             payer_filter && reason_filter && status_filter && min_age_filter && max_age_filter
         })
         .cloned()
@@ -678,6 +708,7 @@ async fn payer_search(
 
     matches.sort_by_key(payer_sort_key);
     let (items, next_cursor) = paginate(matches, cursor, limit);
+    let count = items.len();
 
     (
         StatusCode::OK,
@@ -685,7 +716,7 @@ async fn payer_search(
             request_id,
             items,
             next_cursor,
-            count: items.len(),
+            count,
         }),
     )
         .into_response()
@@ -699,8 +730,13 @@ async fn get_case(
     let request_id = make_hash(&[&now_iso_now(), &case_id, "get_case"]);
     let role = Role::from_headers(&headers);
     if !role.can_read_case() {
-        return unauthorized(request_id, "case retrieval requires authenticated role", true, &["admin", "biller", "payer"])
-            .into_response();
+        return unauthorized(
+            request_id,
+            "case retrieval requires authenticated role",
+            true,
+            &["admin", "biller", "payer"],
+        )
+        .into_response();
     }
 
     let state = state.read().await;
@@ -714,7 +750,13 @@ async fn get_case(
                     case_id: case_record.case_id.clone(),
                     case_type: "biller".to_string(),
                     case_data: payload,
-                    timeline_last_100: case_record.timeline.iter().rev().take(100).cloned().collect(),
+                    timeline_last_100: case_record
+                        .timeline
+                        .iter()
+                        .rev()
+                        .take(100)
+                        .cloned()
+                        .collect(),
                 }),
             )
                 .into_response();
@@ -731,7 +773,13 @@ async fn get_case(
                     case_id: case_record.case_id.clone(),
                     case_type: "payer_denial".to_string(),
                     case_data: payload,
-                    timeline_last_100: case_record.timeline.iter().rev().take(100).cloned().collect(),
+                    timeline_last_100: case_record
+                        .timeline
+                        .iter()
+                        .rev()
+                        .take(100)
+                        .cloned()
+                        .collect(),
                 }),
             )
                 .into_response();
@@ -761,8 +809,13 @@ async fn get_case_audit(
     let request_id = make_hash(&[&now_iso_now(), &case_id, "get_case_audit"]);
     let role = Role::from_headers(&headers);
     if !role.can_read_case() {
-        return unauthorized(request_id, "audit retrieval requires authenticated role", true, &["admin", "biller", "payer"])
-            .into_response();
+        return unauthorized(
+            request_id,
+            "audit retrieval requires authenticated role",
+            true,
+            &["admin", "biller", "payer"],
+        )
+        .into_response();
     }
 
     let state = state.read().await;
@@ -790,10 +843,18 @@ async fn perform_action(
         .and_then(|value| value.to_str().ok())
         .unwrap_or("anonymous")
         .to_string();
-    let request_id = payload.request_id.unwrap_or_else(|| make_hash(&[&now_iso_now(), &case_id, &actor]));
+    let request_id = payload
+        .request_id
+        .unwrap_or_else(|| make_hash(&[&now_iso_now(), &case_id, &actor]));
     let params_hash = value_hash(&payload.params);
     let idempotency = payload.idempotency_key.clone().unwrap_or_else(|| {
-        make_hash(&[&actor, &case_id, &payload.command, &params_hash, &request_id])
+        make_hash(&[
+            &actor,
+            &case_id,
+            &payload.command,
+            &params_hash,
+            &request_id,
+        ])
     });
     let idempotency_key = format!("{actor}:{case_id}:{}", idempotency);
     let mut state_guard = state.write().await;
@@ -801,7 +862,11 @@ async fn perform_action(
     if !role.command_allowed(&payload.command) {
         return bad_request(
             request_id,
-            format!("command {} is not permitted for role {}", payload.command, role.as_str()),
+            format!(
+                "command {} is not permitted for role {}",
+                payload.command,
+                role.as_str()
+            ),
             false,
             &role.allowed_commands(),
         )
@@ -811,6 +876,7 @@ async fn perform_action(
     if let Some(stored) = state_guard.idempotency.get(&idempotency_key) {
         let mut replay = stored.clone();
         replay.replayed = true;
+        let audit_id = replay.command_id.clone();
         return (
             StatusCode::OK,
             Json(ActionResponse {
@@ -826,7 +892,7 @@ async fn perform_action(
                 resulting_queue_state: replay.resulting_queue_state,
                 next_allowed_actions: replay.next_allowed_actions,
                 preview: false,
-                audit_id: Some(replay.command_id.clone()),
+                audit_id: Some(audit_id),
             }),
         )
             .into_response();
@@ -859,13 +925,8 @@ async fn perform_action(
     let (resulting_status, resulting_queue) = match result {
         Ok((resulting_status, resulting_queue)) => (resulting_status, resulting_queue),
         Err(error_message) => {
-            return bad_request(
-                request_id,
-                error_message,
-                true,
-                &role.allowed_commands(),
-            )
-            .into_response();
+            return bad_request(request_id, error_message, true, &role.allowed_commands())
+                .into_response();
         }
     };
 
@@ -908,7 +969,9 @@ async fn perform_action(
     };
 
     if payload.confirm {
-        state_guard.idempotency.insert(idempotency_key.clone(), response);
+        state_guard
+            .idempotency
+            .insert(idempotency_key.clone(), response);
     }
 
     (
