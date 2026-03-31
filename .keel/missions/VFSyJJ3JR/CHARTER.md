@@ -6,14 +6,9 @@ Archetype: Strategic
 
 | ID | Description | Verification |
 |----|-------------|--------------|
-| MG-01 | Define mission execution scope and proof objectives for governance planning. | board: VFSyJ7GEp |
+| MG-01 | Define and execute a coverage/eligibility preflight service that reduces preventable downstream denial risk before claim assembly. | board: VFTR11pG0 |
 
 ## Constraints
-
-- (none yet)
-
+- Conserve scope to payer coverage and eligibility preflight with no impact to payment orchestration. Focus on service-bound changes only in transit-backed preflight flow and existing coverage metadata sources.
 ## Halting Rules
-
-- DO NOT halt while any MG-* goal has unfinished board work
-- HALT when all MG-* goals with `board:` verification are satisfied
-- YIELD to human when only `metric:` or `manual:` goals remain
+- Stop when required board-linked MG goals are met; yield to human when policy/legal interpretation or payer-routing decisions are needed; do not halt on non-revenue tasks that do not affect coverage decision quality.

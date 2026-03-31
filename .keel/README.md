@@ -73,6 +73,13 @@
 |--------|--------|
 | [Claim Assembly Orchestration](epics/VFTMxV7Mr/voyages/VFTMy4JOd/) | done |
 
+### [Coverage And Eligibility Preflight](epics/VFTR11pG0/) (active)
+
+| Voyage | Status |
+|--------|--------|
+| [Eligibility Preflight Coverage Intake](epics/VFTR11pG0/voyages/VFTR2S8LO/) | planned |
+| [Eligibility Decision And Escalation Voyage](epics/VFTR11pG0/voyages/VFTR2l5PP/) | planned |
+
 ### [Foundation Guardrail Baseline](epics/VFSyOFTYG/) (done)
 
 | Voyage | Status |

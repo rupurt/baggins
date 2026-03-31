@@ -1,0 +1,23 @@
+---
+# system-managed
+id: VFTR6WZau
+status: backlog
+created_at: 2026-03-31T12:11:09
+updated_at: 2026-03-31T12:11:30
+# authored
+title: Implement Eligibility Decision Evaluator And Rationale Output
+type: feat
+operator-signal:
+scope: VFTR11pG0/VFTR2l5PP
+index: 1
+---
+
+# Implement Eligibility Decision Evaluator And Rationale Output
+
+## Summary
+
+Evaluate normalized coverage/eligibility payloads and produce stable decisions with rationale, remediation hints, and hold/fail classification.
+
+## Acceptance Criteria
+
+- [ ] [SRS-01/AC-01] Produce deterministic PASS/FAIL/HOLD decisions with explicit reason codes and remediation actions. <!-- verify: manual, SRS-01:start:end -->
