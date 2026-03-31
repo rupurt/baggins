@@ -22,8 +22,8 @@ mission: VFSyJACG0
 ## Voyages
 
 <!-- BEGIN GENERATED -->
-**Progress:** 0/1 voyages complete, 0/1 stories done
+**Progress:** 1/1 voyages complete, 1/1 stories done
 | Voyage | Status | Stories |
 |--------|--------|---------|
-| [Ingestion Handoff Telemetry](voyages/VFT6A5Q9v/) | planned | 0/1 |
+| [Ingestion Handoff Telemetry](voyages/VFT6A5Q9v/) | done | 1/1 |
 <!-- END GENERATED -->

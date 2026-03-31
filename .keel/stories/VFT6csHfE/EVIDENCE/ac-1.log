@@ -1,0 +1,5 @@
+---
+recorded_at: 2026-03-31T10:52:16.344267349-07:00
+mode: manual
+---
+Documented preflight validation controls and failure routing behavior in voyage SRS/SDD, including schema-version and required-field checks plus retry/reject outcomes with reason codes.

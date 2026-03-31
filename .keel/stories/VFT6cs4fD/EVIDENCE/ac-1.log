@@ -1,0 +1,5 @@
+---
+recorded_at: 2026-03-31T10:52:16.236551076-07:00
+mode: manual
+---
+Created normalization planning artifact set in .keel for canonical schema onboarding and traced lineage fields in acceptance criteria; output contract is defined for canonical schema versioning and source identity propagation.
