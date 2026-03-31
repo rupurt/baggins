@@ -1,13 +1,14 @@
 ---
 # system-managed
 id: VFTR2l5PP
-status: planned
+status: in-progress
 epic: VFTR11pG0
 created_at: 2026-03-31T12:10:54
 # authored
 title: Eligibility Decision And Escalation Voyage
 index: 2
 updated_at: 2026-03-31T12:11:30
+started_at: 2026-03-31T12:14:39
 ---
 
 # Eligibility Decision And Escalation Voyage
@@ -30,5 +31,5 @@ updated_at: 2026-03-31T12:11:30
 
 | Title | Type | Status |
 |-------|------|--------|
-| [Implement Eligibility Decision Evaluator And Rationale Output](../../../../stories/VFTR6WZau/README.md) | feat | backlog |
+| [Implement Eligibility Decision Evaluator And Rationale Output](../../../../stories/VFTR6WZau/README.md) | feat | in-progress |
 <!-- END GENERATED -->

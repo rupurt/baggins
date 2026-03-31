@@ -25,6 +25,6 @@ mission: VFSyJJ3JR
 **Progress:** 0/2 voyages complete, 0/3 stories done
 | Voyage | Status | Stories |
 |--------|--------|---------|
-| [Eligibility Preflight Coverage Intake](voyages/VFTR2S8LO/) | planned | 0/2 |
-| [Eligibility Decision And Escalation Voyage](voyages/VFTR2l5PP/) | planned | 0/1 |
+| [Eligibility Preflight Coverage Intake](voyages/VFTR2S8LO/) | in-progress | 0/2 |
+| [Eligibility Decision And Escalation Voyage](voyages/VFTR2l5PP/) | in-progress | 0/1 |
 <!-- END GENERATED -->

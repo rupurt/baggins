@@ -77,8 +77,8 @@
 
 | Voyage | Status |
 |--------|--------|
-| [Eligibility Preflight Coverage Intake](epics/VFTR11pG0/voyages/VFTR2S8LO/) | planned |
-| [Eligibility Decision And Escalation Voyage](epics/VFTR11pG0/voyages/VFTR2l5PP/) | planned |
+| [Eligibility Preflight Coverage Intake](epics/VFTR11pG0/voyages/VFTR2S8LO/) | in-progress |
+| [Eligibility Decision And Escalation Voyage](epics/VFTR11pG0/voyages/VFTR2l5PP/) | in-progress |
 
 ### [Foundation Guardrail Baseline](epics/VFSyOFTYG/) (done)
 
