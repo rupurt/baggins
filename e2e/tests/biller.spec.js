@@ -52,7 +52,7 @@ test('biller search and command flow is connected to backend', async ({ page }) 
   expect(actionBody.transition_id).toBeTruthy();
   expect(actionBody.command_outcome).toBe('executed');
 
-  await expect(page.getByText('Loaded case BILLER-1001')).toBeVisible();
+  await expect(page.locator('.case-box')).toContainText('BILLER-1001');
 });
 
 test('biller command preview and idempotent replay are deterministic', async ({ request }) => {

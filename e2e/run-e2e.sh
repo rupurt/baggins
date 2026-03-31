@@ -5,6 +5,22 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LOG_DIR="$ROOT_DIR/.keel/e2e-logs"
 mkdir -p "$LOG_DIR"
 
+ensure_npm() {
+  if command -v npm >/dev/null 2>&1; then
+    return
+  fi
+
+  if command -v nix >/dev/null 2>&1 && [ -f "$ROOT_DIR/flake.nix" ]; then
+    echo "npm not found, re-running e2e via nix develop."
+    exec nix develop -c "$ROOT_DIR/e2e/run-e2e.sh"
+  fi
+
+  echo "npm is required to run e2e tests; install nodejs_20 or run this inside the nix shell."
+  exit 1
+}
+
+ensure_npm
+
 wait_for_ready() {
   local url="$1"
   for _ in {1..120}; do

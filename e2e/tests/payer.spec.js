@@ -45,7 +45,7 @@ test('payer denial triage is connected to backend workflows', async ({ page }) =
   expect(actionBody.trace_id).toBeTruthy();
   expect(actionBody.transition_id).toBeTruthy();
   expect(actionBody.command_outcome).toBe('executed');
-  await expect(page.getByText(/Loaded denial case DENIAL-3001/)).toBeVisible();
+  await expect(page.locator('.case-box')).toContainText('DENIAL-3001');
 });
 
 test('payer search enforces biller role boundary', async () => {
