@@ -67,6 +67,12 @@
 |--------|--------|
 | [Unified Billing Workflow API Platform](epics/VFTDMW0m2/voyages/VFTDjpu84/) | done |
 
+### [Claim Assembly And Validation Service](epics/VFTMxV7Mr/) (active)
+
+| Voyage | Status |
+|--------|--------|
+| [Claim Assembly Orchestration](epics/VFTMxV7Mr/voyages/VFTMy4JOd/) | planned |
+
 ### [Foundation Guardrail Baseline](epics/VFSyOFTYG/) (done)
 
 | Voyage | Status |

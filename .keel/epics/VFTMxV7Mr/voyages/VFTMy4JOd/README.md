@@ -1,0 +1,34 @@
+---
+# system-managed
+id: VFTMy4JOd
+status: planned
+epic: VFTMxV7Mr
+created_at: 2026-03-31T11:54:43
+# authored
+title: Claim Assembly Orchestration
+index: 1
+updated_at: 2026-03-31T11:55:20
+---
+
+# Claim Assembly Orchestration
+
+> Build validated claim assembly and mutation API and deterministic queue-state transitions for payer/biller workflows.
+
+## Documents
+
+<!-- BEGIN DOCUMENTS -->
+| Document | Description |
+|----------|-------------|
+| [SRS.md](SRS.md) | Requirements and verification criteria |
+| [SDD.md](SDD.md) | Architecture and implementation details |
+<!-- END DOCUMENTS -->
+
+## Stories
+
+<!-- BEGIN GENERATED -->
+**Progress:** 0/1 stories complete
+
+| Title | Type | Status |
+|-------|------|--------|
+| [Assemble Claim Payloads](../../../../stories/VFTN02KSI/README.md) | feat | backlog |
+<!-- END GENERATED -->

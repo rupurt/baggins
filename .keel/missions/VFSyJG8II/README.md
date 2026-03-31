@@ -1,12 +1,13 @@
 ---
 # system-managed
 id: VFSyJG8II
-status: defining
+status: active
 created_at: 2026-03-31T10:16:46
-updated_at: 2026-03-31T10:16:46
+updated_at: 2026-03-31T11:55:26
 # authored
 title: Mission Three Claim Assembly And Validation Service
 watch: ~
+activated_at: 2026-03-31T11:55:26
 ---
 
 # Mission Three Claim Assembly And Validation Service
