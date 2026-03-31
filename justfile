@@ -5,14 +5,19 @@ default:
 
 test:
   @if [ -f Cargo.toml ]; then \
-    if command -v cargo-nextest >/dev/null 2>&1; then \
-      cargo nextest run --all-targets --all-features; \
-    elif command -v cargo >/dev/null 2>&1; then \
-      echo "cargo-nextest not found; falling back to cargo test --all."; \
-      cargo test --all; \
-    else \
-      echo "Cargo not found; skipping tests."; \
+    if ! command -v cargo-nextest >/dev/null 2>&1; then \
+      echo "cargo-nextest is required for mission-style test execution."; \
+      echo "Install with: cargo install cargo-nextest --locked"; \
+      exit 1; \
     fi; \
+    cargo nextest run --all-targets --all-features; \
+  else \
+    echo "No Cargo manifest found; skipping tests."; \
+  fi
+
+test-all:
+  @if [ -f Cargo.toml ] && command -v cargo >/dev/null 2>&1; then \
+    cargo test --all; \
   else \
     echo "No Cargo manifest found; skipping tests."; \
   fi

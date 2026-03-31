@@ -23,4 +23,4 @@ Convert normalized intake evidence bundles into a ranked coding-candidate payloa
 
 ## Acceptance Criteria
 
-- [x] [SRS-01/AC-01] Build coding-candidate extraction so each output includes deterministic identifiers, source pointers, and confidence metadata. <!-- verify: manual, SRS-01:start:end, proof: ac-1.log -->
+- [x] [SRS-01/AC-01] Build coding-candidate extraction so each output includes deterministic identifiers, source pointers, and confidence metadata. <!-- verify: manual, SRS-01:start:end, proof: ac-1.log, ac-2.log -->

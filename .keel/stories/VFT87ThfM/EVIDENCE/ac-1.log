@@ -10,4 +10,3 @@ Execution evidence for AC-01:
   - SRS.md specifies ready/blocked/escalated output states and evidence-link requirements.
   - SDD.md defines handoff state projector, telemetry composer, and escalation routing.
 - Artifact model now covers deterministic evidence links and reproducible state transitions for downstream claim assembly.
-

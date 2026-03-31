@@ -11,4 +11,3 @@ Execution evidence for AC-01:
   - SDD.md defines deterministic extractor pipeline and ranking components.
 - Documented candidate payload contract includes candidate IDs, source lineage pointers, confidence score, and schema metadata.
 - Planned handoff is deterministic and replay-safe for each normalized evidence input.
-

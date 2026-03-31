@@ -11,4 +11,3 @@ Execution evidence for AC-01:
   - SDD.md defines candidate validator, outcome router, reason-code mapper, and replay behavior.
 - AC-01 is satisfied via documented deterministic validation pathway:
   - unsafe/incomplete candidates emit reject/retry statuses with machine-readable reason mappings.
-

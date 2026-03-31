@@ -10,3 +10,10 @@ Mission planning completed: defined three mission-two epics and attached them to
 ## 2026-03-31T10:58:23
 
 Mission achieved by local system user 'alex'
+
+## 2026-03-31T11:07:18
+
+Re-validation update completed:
+- Added explicit mission-quality test artifacts for all three Mission Two stories under `.keel/stories/*/EVIDENCE/`.
+- Updated voyage/compliance evidence matrices to include `SRS-NFR-01` verification for replay-safety/traceability.
+- Added `cargo nextest` enforcement path in `justfile` test workflow.

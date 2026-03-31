@@ -30,5 +30,5 @@ Goal: Validate extracted evidence, reject unsafe coding suggestions, and preserv
 <!-- BEGIN NON_FUNCTIONAL_REQUIREMENTS -->
 | ID | Requirement | Scope | Source | Verification |
 |----|-------------|-------|--------|--------------|
-| SRS-NFR-01 | Sample NFR | SCOPE-01 | NFR-01 | manual |
+| SRS-NFR-01 | Candidate validation outputs must be replay-identical and reason-code stable for repeated validations of the same input snapshot. | SCOPE-01 | NFR-01 | manual |
 <!-- END NON_FUNCTIONAL_REQUIREMENTS -->
