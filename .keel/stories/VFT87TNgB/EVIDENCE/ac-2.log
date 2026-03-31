@@ -1,20 +1,17 @@
 ---
-recorded_at: 2026-03-31T11:06:00-07:00
+recorded_at: 2026-03-31T12:16:00-07:00
 mode: manual
 files: [".keel/stories/VFT87TNgB/EVIDENCE/ac-2.log"]
 ---
 
 --- File: ac-2.log ---
 Execution evidence for AC-01:
-- Test: reject path reason-code mapping
-  - Input: candidate with missing mandatory code field.
-  - Expected: route outcome is `reject` with reason code `RC-REQ-CODE`.
-  - Verification: deterministic payload includes `outcome_code="reject"` and `reason_code="RC-REQ-CODE"` and no ready emission.
-- Test: retry vs escalate boundary
-  - Input: candidate with low confidence score and recoverable missing evidence.
-  - Expected: route outcome is `retry` with reason code `RC-LOW-CONFIDENCE`.
-  - Verification: output includes `next_action="retry"` and evidence-request block.
-- Test: safety hard-stop
-  - Input: unsafe modifier/conflict combination (high-risk clinical/procedure pairing).
-  - Expected: route outcome is `escalate` with reason code `RC-UNSAFE-COMB`.
-  - Verification: handoff reason channel records escalation and blocks downstream ready transition.
+- Command: `cargo nextest run validation::tests::missing_code_is_reject_with_reason_code -- --nocapture`
+  - Result: passed
+  - Verified missing-code rejection emits `RC-REQ-CODE`.
+- Command: `cargo nextest run validation::tests::low_confidence_is_retry_with_reason_code -- --nocapture`
+  - Result: passed
+  - Verified low confidence candidate routes to `retry` with `RC-LOW-CONFIDENCE`.
+- Command: `cargo nextest run validation::tests::unsafe_pair_is_escalation -- --nocapture`
+  - Result: passed
+  - Verified unsafe pair emits `RC-UNSAFE-COMB` and escalate outcome.

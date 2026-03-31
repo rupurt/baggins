@@ -1,20 +1,18 @@
 ---
-recorded_at: 2026-03-31T11:06:00-07:00
+recorded_at: 2026-03-31T12:16:00-07:00
 mode: manual
 files: [".keel/stories/VFT87T2fN/EVIDENCE/ac-2.log"]
 ---
 
 --- File: ac-2.log ---
 Execution evidence for AC-01:
-- Test: extraction output determinism (manual simulation)
-  - Input: canonical intake bundle with two clinical findings and stable source IDs.
-  - Expected: payload contains `candidate_id`, `source_pointers`, `confidence` and `schema_version` for each candidate.
-  - Verification: output ordering is stable and duplicate candidate IDs do not appear within one extraction pass.
-- Test: replay safety
-  - Input: same canonical evidence snapshot from the same source run twice.
-  - Expected: identical candidate ordering and identical IDs across both runs.
-  - Verification: all generated candidate IDs and confidence metadata match byte-for-byte.
-- Test: lineage completeness
-  - Input: evidence bundle with mixed source pointers (note span + normalized fact IDs).
-  - Expected: each candidate includes at least one source pointer and exact span offset metadata.
-  - Verification: lineage pointers remain present after ranking sort and remain stable in `candidate_source` fields.
+- Command: `cargo nextest run extraction::tests::extraction_is_deterministic_for_same_input -- --nocapture`
+  - Result: passed
+  - Verified deterministic candidate IDs and ordering for duplicate replay input.
+- Command: `cargo nextest run extraction::tests::extraction_includes_schema_and_confidence -- --nocapture`
+  - Result: passed
+  - Verified candidates include `confidence` and `schema_version` on deterministic outputs.
+- Test behavior:
+  - Deterministic IDs produced from encounter/finding/code/rationale tuple.
+  - Stable source pointers maintained across extraction pass.
+  - Evidence candidate ranking is repeatable for identical snapshots.

@@ -1,20 +1,17 @@
 ---
-recorded_at: 2026-03-31T11:06:00-07:00
+recorded_at: 2026-03-31T12:16:00-07:00
 mode: manual
 files: [".keel/stories/VFT87ThfM/EVIDENCE/ac-2.log"]
 ---
 
 --- File: ac-2.log ---
 Execution evidence for AC-01:
-- Test: ready state handoff serialization
-  - Input: validated ready candidate batch with complete source links.
-  - Expected: handoff state is `ready` and event contains deterministic evidence_links and `handoff_id`.
-  - Verification: downstream artifact references both input batch ID and candidate IDs.
-- Test: blocked-to-escalate transition
-  - Input: batch containing retry outcomes with unresolved mandatory field.
-  - Expected: handoff state is `blocked` and includes explicit retry evidence.
-  - Verification: blocked telemetry includes `blocked_reason_codes` and a `blocked_until` timestamp.
-- Test: deterministic replay for handoff
-  - Input: same validation result set replayed twice.
-  - Expected: same `handoff_id` lineage chain and same sequence of telemetry events.
-  - Verification: compare sorted event list and handoff IDs for exact match.
+- Command: `cargo nextest run handoff::tests::ready_batch_handoff_is_ready -- --nocapture`
+  - Result: passed
+  - Verified ready state generation with complete evidence links and zero block codes.
+- Command: `cargo nextest run handoff::tests::blocked_batch_handoff_is_blocked_and_deterministic -- --nocapture`
+  - Result: passed
+  - Verified blocked transitions collect `blocked_reason_codes` and deterministic evidence links.
+- Command: `cargo nextest run handoff::tests::escalated_batch_handoff_is_escalated -- --nocapture`
+  - Result: passed
+  - Verified escalated state and deterministic event sequence for hard-risk candidates.

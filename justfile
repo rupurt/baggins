@@ -25,6 +25,12 @@ test-all:
 quality:
   @if [ -f Cargo.toml ] && command -v cargo >/dev/null 2>&1; then \
     cargo fmt --all -- --check; \
+    if ! command -v cargo-nextest >/dev/null 2>&1; then \
+      echo "cargo-nextest is required for mission-quality test execution."; \
+      echo "Install with: cargo install cargo-nextest --locked"; \
+      exit 1; \
+    fi; \
+    cargo nextest run --all-targets --all-features; \
     if command -v cargo-clippy >/dev/null 2>&1; then \
       cargo clippy --all-targets --all-features; \
     else \
