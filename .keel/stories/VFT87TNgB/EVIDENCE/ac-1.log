@@ -1,0 +1,14 @@
+---
+recorded_at: 2026-03-31T10:58:19.255634271-07:00
+mode: manual
+files: [".keel/stories/VFT87TNgB/EVIDENCE/ac-1.log"]
+---
+
+--- File: ac-1.log ---
+Execution evidence for AC-01:
+- Added explicit evidence validation and outcome-routing definitions in voyage VFT8782cq:
+  - SRS.md defines reject/retry state requirements and reason-code expectations.
+  - SDD.md defines candidate validator, outcome router, reason-code mapper, and replay behavior.
+- AC-01 is satisfied via documented deterministic validation pathway:
+  - unsafe/incomplete candidates emit reject/retry statuses with machine-readable reason mappings.
+

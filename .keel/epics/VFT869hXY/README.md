@@ -22,8 +22,8 @@ mission: VFSyJDGH7
 ## Voyages
 
 <!-- BEGIN GENERATED -->
-**Progress:** 0/1 voyages complete, 0/1 stories done
+**Progress:** 1/1 voyages complete, 1/1 stories done
 | Voyage | Status | Stories |
 |--------|--------|---------|
-| [Medical Code Candidate Extraction](voyages/VFT877lcp/) | planned | 0/1 |
+| [Medical Code Candidate Extraction](voyages/VFT877lcp/) | done | 1/1 |
 <!-- END GENERATED -->

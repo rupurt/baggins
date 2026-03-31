@@ -22,8 +22,8 @@ mission: VFSyJDGH7
 ## Voyages
 
 <!-- BEGIN GENERATED -->
-**Progress:** 0/1 voyages complete, 0/1 stories done
+**Progress:** 1/1 voyages complete, 1/1 stories done
 | Voyage | Status | Stories |
 |--------|--------|---------|
-| [Evidence Validation And Rejection Policy](voyages/VFT8782cq/) | planned | 0/1 |
+| [Evidence Validation And Rejection Policy](voyages/VFT8782cq/) | done | 1/1 |
 <!-- END GENERATED -->

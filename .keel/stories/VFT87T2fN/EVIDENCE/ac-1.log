@@ -1,0 +1,14 @@
+---
+recorded_at: 2026-03-31T10:58:19.240024753-07:00
+mode: manual
+files: [".keel/stories/VFT87T2fN/EVIDENCE/ac-1.log"]
+---
+
+--- File: ac-1.log ---
+Execution evidence for AC-01:
+- Implemented candidate extraction contract in voyage VFT877lcp docs:
+  - SRS.md defines extraction scope and replay safety constraints.
+  - SDD.md defines deterministic extractor pipeline and ranking components.
+- Documented candidate payload contract includes candidate IDs, source lineage pointers, confidence score, and schema metadata.
+- Planned handoff is deterministic and replay-safe for each normalized evidence input.
+

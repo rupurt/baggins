@@ -31,23 +31,23 @@
 |--------|--------|
 | [Ingestion Handoff Telemetry](epics/VFT67jt2u/voyages/VFT6A5Q9v/) | done |
 
-### [Clinical Coding Extraction](epics/VFT869hXY/) (active)
+### [Clinical Coding Extraction](epics/VFT869hXY/) (done)
 
 | Voyage | Status |
 |--------|--------|
-| [Medical Code Candidate Extraction](epics/VFT869hXY/voyages/VFT877lcp/) | planned |
+| [Medical Code Candidate Extraction](epics/VFT869hXY/voyages/VFT877lcp/) | done |
 
-### [Clinical Evidence Validation](epics/VFT86RtYc/) (active)
-
-| Voyage | Status |
-|--------|--------|
-| [Evidence Validation And Rejection Policy](epics/VFT86RtYc/voyages/VFT8782cq/) | planned |
-
-### [Coding Handoff And Escalation](epics/VFT86SGYZ/) (active)
+### [Clinical Evidence Validation](epics/VFT86RtYc/) (done)
 
 | Voyage | Status |
 |--------|--------|
-| [Coding Handoff And Escalation Telemetry](epics/VFT86SGYZ/voyages/VFT878Ncr/) | planned |
+| [Evidence Validation And Rejection Policy](epics/VFT86RtYc/voyages/VFT8782cq/) | done |
+
+### [Coding Handoff And Escalation](epics/VFT86SGYZ/) (done)
+
+| Voyage | Status |
+|--------|--------|
+| [Coding Handoff And Escalation Telemetry](epics/VFT86SGYZ/voyages/VFT878Ncr/) | done |
 
 ### [Foundation Guardrail Baseline](epics/VFSyOFTYG/) (done)
 
