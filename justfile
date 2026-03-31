@@ -15,6 +15,20 @@ test:
     echo "No Cargo manifest found; skipping tests."; \
   fi
 
+baggins *ARGS:
+  @if [ -f Cargo.toml ] && command -v cargo >/dev/null 2>&1; then \
+    cargo run --bin baggins --all-features -- "$@"; \
+  else \
+    echo "No Cargo manifest or cargo toolchain detected; cannot run baggins."; \
+  fi
+
+build:
+  @if [ -f Cargo.toml ] && command -v cargo >/dev/null 2>&1; then \
+    cargo build --all-targets --all-features; \
+  else \
+    echo "No Cargo manifest or cargo toolchain detected; skipping build."; \
+  fi
+
 test-all:
   @if [ -f Cargo.toml ] && command -v cargo >/dev/null 2>&1; then \
     cargo test --all; \
