@@ -4,34 +4,41 @@ This document is downstream from Keel and should be hydrated with the collaborat
 
 ## Why This Exists
 
-- State the non-negotiable values for shipping work in this repository.
-- Define how conflicts are resolved when speed, certainty, product taste, and technical integrity pull in different directions.
-- Give planning and delivery work a stable cultural frame that is specific to Baggins, not just generic Keel language.
+- The objective is maximizing **total paid to the provider**, not claim throughput or payer-agnostic ratios.
+- This repository is designed to ship reliable, explainable medical billing improvements with strong safety, compliance, and evidence trails.
+- Every decision should improve the chance that claims are paid by reducing avoidable failure and improving claim quality.
 
 ## Decision Hierarchy
 
-Document the descending order that resolves ambiguity in this repository. A common starting point:
+Decision order in this repository:
 
 1. ADRs
 2. Constitution
-3. Policy
-4. Architecture
-5. Planning artifacts
-6. Chat intent or temporary operator preference
+3. POLICY.md
+4. ARCHITECTURE.md
+5. Board planning artifacts (`mission/mission-brief/board evidence`)
+6. Chat context or temporary operational preference
 
 ## Project Values
 
-Hydrate the values that should shape day-to-day decisions in Baggins.
-
-- Add the product quality bar.
-- Add the operator behavior you expect from humans and AI agents.
-- Add the proof or release posture that should never be traded away casually.
+- Outcomes first: maximize provider payment with defensible revenue quality.
+- Verifier-first engineering: recursive validation before submission.
+- Safe automation: high-confidence rules plus explicit human escalation paths.
+- Evidence-backed behavior: every decision needs an auditable trail.
+- Pace with guardrails: rapid delivery only inside explicit compliance and safety boundaries.
 
 ## Collaboration Rules
 
-- Define when a human decision is required.
-- Define how design, implementation, and verification trade off.
-- Define what “good enough to ship” means here.
+- Humans must approve:
+  - model/clinical policy exceptions
+  - compliance or legal interpretation changes
+  - irreversible payer-submission behavior changes
+- AI agents must default to conservative submission decisions and escalate low-confidence claims.
+- “Good enough to ship” means:
+  - mission goal has a verified board target
+  - supporting evidence exists for all completion claims
+  - no unresolved high-risk safety or compliance gaps
+- If there is a disagreement between speed and correctness, prioritize correctness and traceability.
 
 ## Revision Notes
 

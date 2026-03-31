@@ -4,44 +4,70 @@ Shared guidance for AI agents working with Baggins.
 
 ## Downstream Contract
 
-This repository uses Keel as its project-management engine. This file is downstream from Keel and should remain recognizable when upstream engine guidance changes.
+This repository uses Keel as its project-management engine. This file is downstream from Keel and should remain recognizable when upstream guidance changes.
 
-`AGENTS.md` and `INSTRUCTIONS.md` are the sync-sensitive files in this scaffold. When you absorb a newer Keel version, preserve the `PROJECT-SPECIFIC` blocks instead of rewriting the whole file from memory.
+`AGENTS.md` and `INSTRUCTIONS.md` are the sync-sensitive files in this scaffold. When you absorb a newer Keel version, preserve the `PROJECT-SPECIFIC` blocks.
 
 ## Read This First
 
-1. `INSTRUCTIONS.md` for the repo's procedural turn loop.
-2. `POLICY.md` for local operational invariants.
-3. `ARCHITECTURE.md` and `USER_GUIDE.md` for product and system context.
-4. `CODE_WALKTHROUGH.md` for source layout and key abstractions.
-5. `keel turn`, `keel mission next --status`, and `keel doctor --status` for the live board state.
+1. `INSTRUCTIONS.md` for the repository-specific procedural loop.
+2. `POLICY.md` for operational constraints.
+3. `ARCHITECTURE.md` and `USER_GUIDE.md` for technical/product context.
+4. `CODE_WALKTHROUGH.md` for source and data-flow orientation.
+5. `CONSTITUTION.md` for conflict-resolution values.
 
 ## Core Principles
 
 - Use Keel as the canonical planning and lifecycle surface.
-- Prefer explicit proof over chat-only claims.
-- Close loop debt with sealing commits instead of leaving dirty work behind.
-- Escalate only when the work requires human product, design, legal, or operational judgment.
+- Prioritize maximizing total paid value over claim volume.
+- Use explicit evidence for every acceptance claim.
+- Build recursively: claims and rules must pass verifier checks before submission-facing milestones.
+- Default to conservative automation; escalate uncertainty to humans.
+
+## Mission Design Requirements
+
+Every mission must satisfy:
+
+1. A complete charter with authored goals, constraints, and halting rules.
+2. At least one mission child (bearing/epic/voyage/ADR) before activation.
+3. Board-verifiable goal targets (`board:` references) in `CHARTER.md`.
+4. Explicit handoff criteria tied to proof artifacts.
+
+Required sequence:
+
+1. Design or refine the mission charter.
+2. Create or attach child entities for technical decomposition.
+3. Execute research and evidence generation where needed.
+4. Activate only when validation conditions are met.
+
+## Core Execution Constraints
+
+- All revenue-impacting behavior changes require human approval.
+- Never claim payer-payout outcomes without explicit test or historical metric evidence.
+- Keep mission changes scoped to a bounded set of services/contexts per turn.
+- Do not bypass model confidence gates in recursive verification.
+- Maintain traceability between `paddles` orchestration decisions, `sift` model evidence, and claim output.
 
 ## Decision Resolution Hierarchy
 
 When faced with ambiguity, resolve decisions in this descending order:
-1.  **ADRs**: Binding architectural constraints.
-2.  **CONSTITUTION**: The philosophy of collaboration.
-3.  **POLICY**: The engine's operational invariants.
-4.  **ARCHITECTURE**: Source layout and technical boundaries.
-5.  **PLANNING**: PRD/SRS/SDD authored for the current mission.
+1. ADRs
+2. CONSTITUTION
+3. POLICY
+4. ARCHITECTURE
+5. Planning artifacts (MISSION, EPIC, VOYAGE, STORY)
+6. Tool/runtime evidence and recent `keel doctor --status`
 
 ## Foundational Documents
 
 These define the constraints and workflow of the Baggins environment:
 
-- `INSTRUCTIONS.md` — Step-by-step procedural loops and checklists.
-- `POLICY.md` — Operational invariants and engine constraints.
-- `CONSTITUTION.md` — Collaboration philosophy and decision hierarchy.
-- `ARCHITECTURE.md` — Implementation architecture and technical boundaries.
-- `CODE_WALKTHROUGH.md` — Source layout, key abstractions, and data-flow orientation.
-- `USER_GUIDE.md` — Operator-visible product story and workflow guidance.
+- `INSTRUCTIONS.md` — Procedure and board loop.
+- `POLICY.md` — Invariants and gates.
+- `CONSTITUTION.md` — Collaboration rules.
+- `ARCHITECTURE.md` — Technical shape and boundaries.
+- `CODE_WALKTHROUGH.md` — Data flow and repo structure.
+- `USER_GUIDE.md` — Product behaviors and success lens.
 - `.keel/adrs/` — Binding architecture decisions.
 
 Use this order when interpreting constraints: ADRs → Constitution → Policy → Architecture → Planning artifacts.
@@ -49,13 +75,14 @@ Use this order when interpreting constraints: ADRs → Constitution → Policy �
 ## Project-Specific Conventions
 
 <!-- BEGIN PROJECT-SPECIFIC -->
-- Hydrate stack-specific commands, runtime surfaces, and review constraints here.
-- Add repo-local wrappers such as `just ...`, `bin/...`, or deploy helpers here.
-- Add the local proof contract if this project must validate a runtime, UX, or business claim.
+- Use mission language aligned with `transit`-backed service architecture and recursive verifier stack (`paddles` + `sift`).
+- Enforce "maximize provider payment" as the top-level design target in mission decomposition.
+- For each ship-ready change, update the relevant `.keel/...` entity, plus evidence references in mission logs.
+- Maintain `keel` commandability; avoid manual status edits that conflict with CLI-authoritative state.
 <!-- END PROJECT-SPECIFIC -->
 
 ## Sync Notes
 
 - Upstream source: Keel's `AGENTS.md`
 - Preserve the project-specific block above during syncs.
-- Push detailed workflow rules into `INSTRUCTIONS.md`, not this file.
+- Keep procedural details in `INSTRUCTIONS.md`.

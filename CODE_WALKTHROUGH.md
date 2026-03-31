@@ -4,53 +4,70 @@ This document orients contributors and agents to the source layout, key abstract
 
 ## Repository Layout
 
-Describe the top-level directory structure and what each area is responsible for.
+Current scaffold:
+- `.keel/` — Keel board and mission lifecycle artifacts.
+- `services/` (to be created) — Rust microservices per domain function.
+- `scripts/` (to be created) — local developer and bootstrap scripts.
+- `config/` (to be created) — policy packs, payer templates, and verifier configuration.
+- `crates/` (to be created) — reusable Rust crates for shared contracts and adapters.
+- `README.md` / `AGENTS.md` — living project and agent operating contract.
 
-- What is the build system and how are modules/packages organized?
-- Where does production code live vs tests, scripts, and configuration?
-- Which directories are entry points and which are internal?
+The execution plane will be Rust-first and built as a workspace of mission-bound services.
 
 ## Key Abstractions
 
-Document the core types, services, or modules that a contributor must understand before making changes.
+Core abstractions to model early:
 
-- What are the primary domain objects and where are they defined?
-- What are the main interfaces or traits that compose the system?
-- How does data flow from input to output through the layers?
+- `EncounterContext`: normalized patient interaction representation.
+- `ClaimDraft`: claim candidate plus confidence metadata.
+- `VerificationTrace`: recursive pass outputs from `paddles`.
+- `SiftDecision`: model evidence and rationale payload.
+- `TransitEvent`: transport envelope for each state transition.
+- `PayerPolicy`: payer/contract constraints used in validation.
+
+Services should preserve one-way data movement from raw input to final verified claim or recovery request.
 
 ## State and Lifecycle
 
-If the system manages stateful entities, describe the key state machines and transitions.
+States and transitions are represented through `transit` topics and mission artifacts:
+- `ingest` → `normalized` → `validated` → `eligible` → `submission` → `settlement` / `denial`.
+- Denial recovery introduces `appeal` and `rework` branches.
 
-- What states can entities be in?
-- What triggers transitions and what are the side effects?
-- Where is state persisted and how is it loaded?
+The state model must track:
+- current decision context,
+- confidence and escalation flags,
+- proof references for any payout-related action.
 
 ## Command / Request Flow
 
-Trace a representative operation from entry point to completion.
+Representative flow for a billing event:
 
-- Where does user input enter the system?
-- What validation or enforcement happens before execution?
-- How are results persisted and presented back?
+1. Input notes and encounter metadata arrive at ingest adapters.
+2. `transit` emits a normalized encounter event.
+3. `coding-agent` generates candidate claim lines with evidence spans.
+4. `verifier-orchestrator` runs recursive review loops (`paddles`) with model calls (`sift`).
+5. `claim-service` builds and validates payloads, then transitions to submission if approved.
+6. outcomes (`payment`, `denial`, `appeal`) return to learning and correction paths.
 
 ## Configuration
 
-Describe the key configuration surfaces and their effects on runtime behavior.
+Configuration surfaces:
+- environment for Rust services (local vs remote model routing),
+- verifier thresholds,
+- payer policy packs,
+- retry/backoff and retry-safe correction settings,
+- audit/export options.
 
-- Where does configuration live and what format does it use?
-- What are the most important settings a new contributor should know about?
-- How does configuration affect routing, behavior, or output?
+Store config in clear, versioned formats and align all payer policy decisions to mission artifacts.
 
 ## Where to Look
 
-Provide a quick-reference table mapping common tasks to starting points in the code.
+Quick starts (as the codebase grows):
 
 | I want to... | Start here |
-|---------------|-----------|
-| Understand the domain model | |
-| Add a new command or endpoint | |
-| Change how output renders | |
-| Modify validation rules | |
-| Add a new entity or resource | |
-| Change state transition behavior | |
+|---------------|------------|
+| Understand mission scaffolding | `.keel/` and `MISSION` markdown files |
+| Add or change the Rust workspace | Planned `services/` entry points |
+| Add verifier constraints | `ARCHITECTURE.md` + mission artifacts |
+| Introduce payer policy logic | `services/payer-gatekeeper` (planned) and policy pack docs |
+| Change state transitions | `transit` event contract and mission schema docs |

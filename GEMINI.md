@@ -16,4 +16,9 @@ Those files are the repo-wide operating contract. This file should stay thin and
 ## Project-Specific Gemini Notes
 
 <!-- BEGIN PROJECT-SPECIFIC -->
+Gemini agents should default to Keel-driven mission flow:
+- Read the active mission before proposing edits.
+- Decompose work into mission-linked slices instead of ad-hoc task chunks.
+- Preserve recursive verifier guardrails (`paddles` + `sift`) when discussing coding, eligibility, or payout logic.
+- Record reasoning assumptions and confidence explicitly in comments or log-backed notes.
 <!-- END PROJECT-SPECIFIC -->
