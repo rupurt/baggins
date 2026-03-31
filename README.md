@@ -247,11 +247,21 @@ Controls:
 ## Quick start
 
 1. `nix develop`
-2. Initialize Rust workspace structure for microservices
-3. Create first `transit` stream definitions and local topics
-4. Implement Mission 1 (`ingest-service`) and Mission 2 (`coding-agent`)
-5. Run a small shadow mode against de-identified historical notes
-6. Compare pre-existing billing baseline against `baggins` paid outcome
+2. Start the Baggins API server:
+   `just baggins`
+3. Run interactive UI builds in separate terminals:
+   - Biller interface: `just serve-biller-ui`
+   - Payer interface: `just serve-payer-ui`
+4. Build both front-ends for deployment artifacts:
+   `just build-frontend`
+5. Launch remaining mission pipelines (`keel` / services / topics) as needed.
+
+The API exposes:
+- `GET /v1/biller/search`
+- `GET /v1/payer/denials/search`
+- `GET /v1/cases/{case_id}`
+- `POST /v1/cases/{case_id}/action`
+- `GET /v1/cases/{case_id}/audit`
 
 ---
 

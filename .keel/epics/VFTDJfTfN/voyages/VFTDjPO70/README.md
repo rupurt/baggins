@@ -1,7 +1,7 @@
 ---
 # system-managed
 id: VFTDjPO70
-status: in-progress
+status: done
 epic: VFTDJfTfN
 created_at: 2026-03-31T11:18:02
 # authored
@@ -9,6 +9,7 @@ title: Biller Conversational Interface
 index: 1
 updated_at: 2026-03-31T11:21:43
 started_at: 2026-03-31T11:21:48
+completed_at: 2026-03-31T11:25:45
 ---
 
 # Biller Conversational Interface
@@ -22,15 +23,17 @@ started_at: 2026-03-31T11:21:48
 |----------|-------------|
 | [SRS.md](SRS.md) | Requirements and verification criteria |
 | [SDD.md](SDD.md) | Architecture and implementation details |
+| [VOYAGE_REPORT.md](VOYAGE_REPORT.md) | Narrative summary of implementation and evidence |
+| [COMPLIANCE_REPORT.md](COMPLIANCE_REPORT.md) | Traceability matrix and verification proof |
 <!-- END DOCUMENTS -->
 
 ## Stories
 
 <!-- BEGIN GENERATED -->
-**Progress:** 0/2 stories complete
+**Progress:** 2/2 stories complete
 
 | Title | Type | Status |
 |-------|------|--------|
-| [Build Biller Conversational Search And Case Dashboard](../../../../stories/VFTDlouAq/README.md) | feat | in-progress |
-| [Implement Actionable Chat Commands For Claim Workflow](../../../../stories/VFTDlpDAr/README.md) | feat | backlog |
+| [Build Biller Conversational Search And Case Dashboard](../../../../stories/VFTDlouAq/README.md) | feat | done |
+| [Implement Actionable Chat Commands For Claim Workflow](../../../../stories/VFTDlpDAr/README.md) | feat | done |
 <!-- END GENERATED -->

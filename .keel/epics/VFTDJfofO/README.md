@@ -22,8 +22,8 @@ mission: VFTDIU8bi
 ## Voyages
 
 <!-- BEGIN GENERATED -->
-**Progress:** 0/1 voyages complete, 0/2 stories done
+**Progress:** 1/1 voyages complete, 2/2 stories done
 | Voyage | Status | Stories |
 |--------|--------|---------|
-| [Payer Conversational Triage And Appeals](voyages/VFTDjpd83/) | in-progress | 0/2 |
+| [Payer Conversational Triage And Appeals](voyages/VFTDjpd83/) | done | 2/2 |
 <!-- END GENERATED -->

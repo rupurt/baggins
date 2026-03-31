@@ -22,8 +22,8 @@ mission: VFTDIU8bi
 ## Voyages
 
 <!-- BEGIN GENERATED -->
-**Progress:** 0/1 voyages complete, 0/2 stories done
+**Progress:** 1/1 voyages complete, 2/2 stories done
 | Voyage | Status | Stories |
 |--------|--------|---------|
-| [Unified Billing Workflow API Platform](voyages/VFTDjpu84/) | in-progress | 0/2 |
+| [Unified Billing Workflow API Platform](voyages/VFTDjpu84/) | done | 2/2 |
 <!-- END GENERATED -->

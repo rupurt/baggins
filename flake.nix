@@ -17,6 +17,7 @@
         packages = [
           pkgs.cargo
           pkgs.clippy
+          pkgs.nodejs_20
           pkgs.just
           pkgs.cargo-nextest
           keel.packages.${system}.keel

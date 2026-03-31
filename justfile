@@ -3,6 +3,45 @@
 default:
   @just --list
 
+build-frontend-ui *APP:
+  @if [ -f Cargo.toml ] && [ -d "interfaces/$APP" ] && command -v npm >/dev/null 2>&1; then \
+    cd "interfaces/$APP" && \
+    if [ -f package-lock.json ]; then \
+      npm ci --silent; \
+    else \
+      npm install --silent; \
+    fi && \
+    npm run build; \
+  else \
+    echo "No Node/npm tooling or target app directory found; cannot build frontend."; \
+  fi
+
+build-frontend:
+  @just build-frontend-ui biller && \
+  just build-frontend-ui payer
+
+serve-biller-ui:
+  @if [ -d interfaces/biller ] && command -v npm >/dev/null 2>&1; then \
+    cd interfaces/biller && \
+    if [ ! -f node_modules/.bin/vite ]; then \
+      npm install --silent; \
+    fi && \
+    npm run dev -- --host 0.0.0.0 --port 5173; \
+  else \
+    echo "Cannot run biller UI. Install npm and ensure interfaces/biller exists."; \
+  fi
+
+serve-payer-ui:
+  @if [ -d interfaces/payer ] && command -v npm >/dev/null 2>&1; then \
+    cd interfaces/payer && \
+    if [ ! -f node_modules/.bin/vite ]; then \
+      npm install --silent; \
+    fi && \
+    npm run dev -- --host 0.0.0.0 --port 5174; \
+  else \
+    echo "Cannot run payer UI. Install npm and ensure interfaces/payer exists."; \
+  fi
+
 test:
   @if [ -f Cargo.toml ]; then \
     if ! command -v cargo-nextest >/dev/null 2>&1; then \

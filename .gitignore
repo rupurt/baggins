@@ -27,3 +27,9 @@ target
 .keel/inbox/
 .keel/outbox/
 .keel/cache/
+
+# Node / frontend
+node_modules/
+interfaces/*/node_modules/
+interfaces/*/dist/
+interfaces/*/package-lock.json

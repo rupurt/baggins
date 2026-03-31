@@ -49,23 +49,23 @@
 |--------|--------|
 | [Coding Handoff And Escalation Telemetry](epics/VFT86SGYZ/voyages/VFT878Ncr/) | done |
 
-### [Conversational Biller Productivity Interface](epics/VFTDJfTfN/) (active)
+### [Conversational Biller Productivity Interface](epics/VFTDJfTfN/) (done)
 
 | Voyage | Status |
 |--------|--------|
-| [Biller Conversational Interface](epics/VFTDJfTfN/voyages/VFTDjPO70/) | in-progress |
+| [Biller Conversational Interface](epics/VFTDJfTfN/voyages/VFTDjPO70/) | done |
 
-### [Payer Reconciliation And Workflow Interface](epics/VFTDJfofO/) (active)
-
-| Voyage | Status |
-|--------|--------|
-| [Payer Conversational Triage And Appeals](epics/VFTDJfofO/voyages/VFTDjpd83/) | in-progress |
-
-### [Shared Billing Workflow API Platform](epics/VFTDMW0m2/) (active)
+### [Payer Reconciliation And Workflow Interface](epics/VFTDJfofO/) (done)
 
 | Voyage | Status |
 |--------|--------|
-| [Unified Billing Workflow API Platform](epics/VFTDMW0m2/voyages/VFTDjpu84/) | in-progress |
+| [Payer Conversational Triage And Appeals](epics/VFTDJfofO/voyages/VFTDjpd83/) | done |
+
+### [Shared Billing Workflow API Platform](epics/VFTDMW0m2/) (done)
+
+| Voyage | Status |
+|--------|--------|
+| [Unified Billing Workflow API Platform](epics/VFTDMW0m2/voyages/VFTDjpu84/) | done |
 
 ### [Foundation Guardrail Baseline](epics/VFSyOFTYG/) (done)
 

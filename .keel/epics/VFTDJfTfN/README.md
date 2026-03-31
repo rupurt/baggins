@@ -22,8 +22,8 @@ mission: VFTDIU8bi
 ## Voyages
 
 <!-- BEGIN GENERATED -->
-**Progress:** 0/1 voyages complete, 0/2 stories done
+**Progress:** 1/1 voyages complete, 2/2 stories done
 | Voyage | Status | Stories |
 |--------|--------|---------|
-| [Biller Conversational Interface](voyages/VFTDjPO70/) | in-progress | 0/2 |
+| [Biller Conversational Interface](voyages/VFTDjPO70/) | done | 2/2 |
 <!-- END GENERATED -->

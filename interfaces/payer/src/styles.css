@@ -1,0 +1,113 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Aptos", "Trebuchet MS", system-ui, sans-serif;
+  background: linear-gradient(170deg, #fff7ed 0%, #f0fdfa 60%, #eff6ff 100%);
+  color: #1f2937;
+}
+
+#root {
+  width: min(1100px, 95vw);
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.hero {
+  margin-bottom: 16px;
+}
+
+.search {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) auto auto auto;
+  gap: 8px;
+}
+
+.search input,
+.split select {
+  padding: 8px;
+}
+
+.search button,
+.split button {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.split {
+  margin-top: 16px;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.panel {
+  border: 1px solid #dbeafe;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 16px;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.list-item button {
+  width: 100%;
+  text-align: left;
+}
+
+.messages {
+  display: grid;
+  gap: 8px;
+  max-height: 300px;
+  overflow: auto;
+  padding-bottom: 12px;
+}
+
+.bubble {
+  border-radius: 8px;
+  padding: 8px 10px;
+  width: fit-content;
+}
+
+.bubble.user {
+  background: #dbeafe;
+}
+
+.bubble.assistant {
+  background: #ecfeff;
+}
+
+.case-box {
+  margin-top: 10px;
+  background: #f0fdfa;
+  border-left: 3px solid #0f766e;
+  padding: 10px;
+}
+
+.error {
+  color: #b91c1c;
+}
+
+@media (max-width: 900px) {
+  .search {
+    grid-template-columns: 1fr;
+  }
+
+  .split {
+    grid-template-columns: 1fr;
+  }
+}
