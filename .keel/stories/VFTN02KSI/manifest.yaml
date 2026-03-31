@@ -1,6 +1,6 @@
 id: VFTN02KSI
-git_sha: ce58f53830c41caefe2af2b9cbec3eeb28ab199b
+git_sha: d44695f55adf68d36d3ca3896ead800b9b3f3608
 evidence:
-  EVIDENCE/ac-1.log: 5443bf271b85e1e13c05e3d10d75c39e03a3e4ce79bf5ebf456797ae82d0b20d
+  EVIDENCE/ac-1.log: 8c129f261e66c09bade030abd698212b4d3aa4879d688fe945e3e0e854891fff
   ? EVIDENCE/llm-judge-produce-a-deterministic-claim-assembly-payload-for-biller-and-payer-views-that-includes-validation-status-ownership-metadata-and-queue-state-transition-readiness.txt
   : 248efd6e4f0a8c778675d8a4f93576f14144755da7833ca9d460e96748393a5d
